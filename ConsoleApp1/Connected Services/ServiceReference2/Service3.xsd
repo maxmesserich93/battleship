@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8000/Service?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfGameData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GameData" nillable="true" type="tns:GameData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGameData" nillable="true" type="tns:ArrayOfGameData" />
+  <xs:complexType name="GameData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameData" nillable="true" type="tns:GameData" />
+  <xs:complexType name="ArrayOfShipPlacement">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShipPlacement" nillable="true" type="tns:ShipPlacement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShipPlacement" nillable="true" type="tns:ArrayOfShipPlacement" />
+  <xs:complexType name="ShipPlacement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsVertical" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ShipType" nillable="true" type="tns:ShipType" />
+      <xs:element minOccurs="0" name="StartCoordinate" nillable="true" type="tns:Coordinate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShipPlacement" nillable="true" type="tns:ShipPlacement" />
+  <xs:complexType name="ShipType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Lenght" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShipType" nillable="true" type="tns:ShipType" />
+  <xs:complexType name="Carrier">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipType">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Carrier" nillable="true" type="tns:Carrier" />
+  <xs:complexType name="Submarine">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipType">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Submarine" nillable="true" type="tns:Submarine" />
+  <xs:complexType name="Cruiser">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipType">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Cruiser" nillable="true" type="tns:Cruiser" />
+  <xs:complexType name="Destroyer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipType">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Destroyer" nillable="true" type="tns:Destroyer" />
+  <xs:complexType name="BattleShip">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ShipType">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BattleShip" nillable="true" type="tns:BattleShip" />
+  <xs:complexType name="Coordinate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="X" type="xs:int" />
+      <xs:element minOccurs="0" name="Y" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Coordinate" nillable="true" type="tns:Coordinate" />
+  <xs:complexType name="GameRuleSet">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FieldSize" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ShipTypeRules" nillable="true" type="q1:ArrayOfKeyValueOfstringint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GameRuleSet" nillable="true" type="tns:GameRuleSet" />
+  <xs:complexType name="ArrayOfFieldPosition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FieldPosition" nillable="true" type="tns:FieldPosition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFieldPosition" nillable="true" type="tns:ArrayOfFieldPosition" />
+  <xs:complexType name="FieldPosition">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Coordinate" nillable="true" type="tns:Coordinate" />
+      <xs:element minOccurs="0" name="FieldPositionStatus" type="tns:FieldPositionStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FieldPosition" nillable="true" type="tns:FieldPosition" />
+  <xs:simpleType name="FieldPositionStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="Ship" />
+      <xs:enumeration value="ShotMiss" />
+      <xs:enumeration value="ShotHit" />
+      <xs:enumeration value="ShotKill" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="FieldPositionStatus" nillable="true" type="tns:FieldPositionStatus" />
+</xs:schema>

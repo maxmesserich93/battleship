@@ -1,0 +1,79 @@
+﻿
+    <Page x:Class="View.FieldPage"
+          xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:View"
+      mc:Ignorable="d" 
+      Title="FieldPage">
+    <Page.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!--<Setter TargetName="border" Property="BorderBrush" Value="Black" />-->
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--<sys:Double x:Key="FieldSize">30</sys:Double>-->
+    </Page.Resources>
+    <Grid>
+        <Grid x:Name="playingField" HorizontalAlignment="Center" VerticalAlignment="Center" ShowGridLines="True">
+            <ItemsControl ItemsSource="{Binding Fields}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="10" Columns="10"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+    
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Button
+                            Style="{StaticResource NoHoverButton}"
+                            Click="Button_Click"
+                            MouseEnter="Button_MouseEnter"
+                            CommandParameter="{Binding Coordinate}"                
+                            Content=""
+                            Width="{DynamicResource ResourceKey=FieldSize}"
+                            Height="{DynamicResource ResourceKey=FieldSize}"
+                            Margin="0"
+                            Padding="0"
+                            VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                            <Button.Background>
+                                <MultiBinding Converter="{StaticResource ResourceKey=FieldBrushConverter}">
+                                    <Binding Path="FieldPositionStatus"/>
+                                    <Binding Path="Hover"/>
+                                </MultiBinding>
+                            </Button.Background>
+                           
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </Grid>
+        
+
+    </Grid>
+</Page>

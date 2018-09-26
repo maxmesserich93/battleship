@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://fontysvenlo.org/BattleService" elementFormDefault="qualified" targetNamespace="http://fontysvenlo.org/BattleService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8000/Service?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Models" />
+  <xs:import schemaLocation="http://localhost:8000/Service?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="Login">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LoginResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAvailableGames">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAvailableGamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="GetAvailableGamesResult" nillable="true" type="q1:ArrayOfGameData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JoinGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="playerName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="gameId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JoinGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HostGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HostGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProvideShipPlacements">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="player" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="shipPlacements" nillable="true" type="q2:ArrayOfShipPlacement" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProvideShipPlacementsResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProvideShotPlacement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="player" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="coordinate" nillable="true" type="q3:Coordinate" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProvideShotPlacementResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JoinBotGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JoinBotGameResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StartGame">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="gameRuleSet" nillable="true" type="q4:GameRuleSet" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestShipPlacement">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestShipPlacementResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="RequestShipPlacementResult" nillable="true" type="q5:ArrayOfShipPlacement" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Turd">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TurdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TurdResult" nillable="true" type="q6:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestShotPlacement">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestShotPlacementResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="RequestShotPlacementResult" nillable="true" type="q7:Coordinate" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Shoot">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PlaceShips">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpponentShot">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="fieldPositions" nillable="true" type="q8:ArrayOfFieldPosition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ShotResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="fieldPositions" nillable="true" type="q9:ArrayOfFieldPosition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GameOver">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="winner" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Error">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

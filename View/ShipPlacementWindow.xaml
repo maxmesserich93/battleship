@@ -1,0 +1,39 @@
+﻿<Window x:Class="View.ShipPlacementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Title="ShipPlacementWindow" Width="600" Height="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        
+        <Frame Name="Field" Grid.Column="0" Grid.Row="1"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <DataGrid ItemsSource="{Binding Path=ShipsToPlace}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+                      SelectionMode="Single" SelectedValuePath="Key" SelectedValue="{Binding SelectedShipType, Mode=TwoWay}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Key.Name}" />
+                    <DataGridTextColumn Header="Size" Binding="{Binding Key.Lenght}" />
+                    <DataGridTextColumn Header="#Placed" Binding="{Binding Value}" />
+                    <DataGridTextColumn Header="#Required" Binding="{Binding Value}" />
+                </DataGrid.Columns>
+                
+            </DataGrid>
+            
+            <Button Command="{Binding TileClick}" Content="TURED" Grid.Row="2"/>
+
+        </Grid>
+    </Grid>
+    
+</Window>
