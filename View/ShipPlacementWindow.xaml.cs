@@ -26,14 +26,12 @@ namespace View
 
         public FieldPage Frame { set; get; }
 
-        public ICommand Command;
 
         
 
 
         public ShipPlacementWindow(ShipPlacementViewModel model)
         {
-            Command = new RelayCommand(Bla);
             ViewModel = model;
             this.DataContext = ViewModel;
 
@@ -47,9 +45,34 @@ namespace View
 
         }
 
-        public void Bla(object a)
+        private void Accept_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("ASDASDSADASDASD");
+            if (ViewModel.AcceptPlacement())
+            {
+                var gameModel = new GameViewModel(ViewModel.FieldViewModel,ViewModel);
+                GameWindow next = new GameWindow(gameModel);
+
+                next.Show();
+                this.Hide();
+            }
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Debug.WriteLine(e);
+
+
+            if (MessageBox.Show("Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+                base.OnClosing(e);
+            }
+            else
+            {
+                ViewModel.GameService.Close();
+                Application.Current.Shutdown();
+            }
+
 
         }
     }

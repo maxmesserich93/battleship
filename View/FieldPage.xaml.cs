@@ -34,7 +34,7 @@ namespace View
             Resources.Add("FieldSize", _fieldSize);
             ViewModel = viewModel;
             DataContext = ViewModel;
-            ViewModel.TileClickHandler(null);
+            //ViewModel.TileClickHandler(null);
             
 
            
@@ -45,9 +45,7 @@ namespace View
             Button b = sender as Button;
 
             var field = b.DataContext as FieldPosition;
-            ViewModel.TileClick.Execute(field);
-            Debug.WriteLine(field);
-            Debug.WriteLine(e);
+            ViewModel.TileClick?.Execute(field);
 
 
         }
@@ -57,9 +55,8 @@ namespace View
             Button b = sender as Button;
 
             var field = b.DataContext as FieldPosition;
-            ViewModel.TileHover.Execute(field);
-            //Debug.WriteLine("ENTER: "+field);
-            //Debug.WriteLine(e);
+            ViewModel.TileHover?.Execute(field);
+
         }
     }
 

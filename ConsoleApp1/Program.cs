@@ -16,11 +16,11 @@ namespace ConsoleApp1
         public static void Main(string[] args)
         {
 
-            CallbackContractImplementation i = new CallbackContractImplementation("turd");
+            //CallbackContractImplementation i = new CallbackContractImplementation("turd");
+            //i.Server.Login("Do it");
+            //i.Server.JoinBotGame(i.id);
+            //while (true) { }
 
-            i.Server.JoinBotGame("turd");
-            while (true) { }
-          
         }
     }
 }

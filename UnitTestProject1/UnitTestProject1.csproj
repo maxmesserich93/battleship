@@ -50,11 +50,14 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FieldTest.cs" />
-    <Compile Include="GameLogicTest.cs" />
+    <Compile Include="logic\AITest.cs" />
+    <Compile Include="logic\CoordinateTest.cs" />
+    <Compile Include="logic\FieldTest.cs" />
+    <Compile Include="logic\GameLogicTest.cs" />
+    <Compile Include="persistence\PersistenceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuleSetTest.cs" />
-    <Compile Include="ShipTest.cs" />
+    <Compile Include="logic\RuleSetTest.cs" />
+    <Compile Include="logic\ShipTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -3,6 +3,7 @@ using ConsoleApp1;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
@@ -17,8 +18,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using View.ServiceReference2;
+
 using ViewModel;
+using ViewModel.Lobby;
 
 namespace View
 {
@@ -38,81 +40,56 @@ namespace View
             Trace.WriteLine("DASDAS");
             ViewModel = new LoginViewModel();
             this.DataContext = ViewModel;
+            ViewModel.PropertyChanged += Change;
             InitializeComponent();
 
         }
 
-        private void ConnectToServer(object sender, RoutedEventArgs e)
+        public void Change(object sender, PropertyChangedEventArgs e)
         {
-            var a = ViewModel.ServerAddressString;
-            var address = "http://localhost:8000/Service/Service";
-            GameClient<RemoteCallback> client = new GameClient<RemoteCallback>(ViewModel.PlayerName, address);
-            if (client.Initialize())
+            Debug.WriteLine("CHANGE:" + sender + " , " + e.PropertyName);
+            if (e.PropertyName.Equals(nameof(ShipPlacementViewModel)))
             {
-                //If the client connection is complete: Go to lobby
-
-                var lobbyVm = new LobbyViewModel(client);
-                Lobby nextWindow = new Lobby(lobbyVm);
-
-                nextWindow.Show();
-                this.Close();
-
-            }
-            else
-            {
-                MessageBox.Show("Could not connect to the server " + address);
-
-                var ca = new LocalCallback();
-                var b = new LocalGameServiceVM();
-                ViewModel.Callback = ca;
-                ViewModel.GameService = b;
-                b.Player = ca;
-                
-
-                ViewModel.Callback.GameHandler = _awaitGameRules;
-
-                b.JoinBotGame("roman");
-                //var model = new 
 
 
-
-
-            }
-
-            void _awaitGameRules(GameRuleSet gameRuleSet)
-            {
-                var ShipPlacementVm = new ShipPlacementViewModel(ViewModel.Callback, ViewModel.GameService, gameRuleSet);
-
-
-
-                ShipPlacementWindow next = new ShipPlacementWindow(ShipPlacementVm);
+                ShipPlacementWindow next = new ShipPlacementWindow(ViewModel.ShipPlacementViewModel);
                 next.Show();
                 this.Close();
-
+            }
+            if (e.PropertyName.Equals(nameof(LobbyViewModel)))
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var next = new Lobby(ViewModel.LobbyViewModel);
+                    next.Show();
+                    this.Close();
+                });
 
             }
 
-            //InstanceContext instanceContext;
+        } 
 
 
 
-            /////instanceContext needs a reference to the server
-            //instanceContext = new InstanceContext(new CallbackContractImplementation());
 
-            //_server = new ServiceReference2.GameContractClient(instanceContext);
+        private void ConnectToServer(object sender, RoutedEventArgs e)
+        {
 
-            //_server.Endpoint.Binding.SendTimeout = TimeSpan.FromSeconds(0.5);
-            //EndpointAddress address = new EndpointAddress("http://localhost:8000/Service/Service");
-            //_server.Endpoint.Address = address;
-            //_server.Login("asd");
-
-
+            ViewModel.Connect();
 
 
 
 
         }
+        private void ConnectToLocalServer(object sender, RoutedEventArgs e)
+        {
 
+            ViewModel.LocalConnect();
+
+
+
+
+        }
 
         private void ConnectToServerA(object sender, RoutedEventArgs e)
         {

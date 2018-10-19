@@ -3,35 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:View"
+        xmlns:local="clr-namespace:View" 
         mc:Ignorable="d"
-        Title="ShipPlacementWindow" Width="600" Height="300">
+        Title="ShipPlacementWindow" Width="650" Height="340">
+    <Window.Resources>
+        <local:BoolInverterConverter x:Key="converter"></local:BoolInverterConverter>
+        <Style TargetType="{x:Type DataGridRow}">
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="Blue" />
+                </Trigger>
+            </Style.Triggers>
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"></ColumnDefinition>
-            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-        
-        <Frame Name="Field" Grid.Column="0" Grid.Row="1"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <Grid Grid.Column="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ToggleButton IsChecked="{Binding Path=VerticalPlacement}" Grid.Column="0" Grid.Row="0" Content="{Binding Path=ButtonText}"/>
+            </Grid>
+            <Grid>
+                <Frame Name="Field" Grid.Column="0" Grid.Row="1"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            </Grid>
+        </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <DataGrid ItemsSource="{Binding Path=ShipsToPlace}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
-                      SelectionMode="Single" SelectedValuePath="Key" SelectedValue="{Binding SelectedShipType, Mode=TwoWay}" >
+            <DataGrid ItemsSource="{Binding Path=ShipPlacements}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+                      SelectionMode="Single" SelectedValue="{Binding SelectedShipType, Mode=TwoWay}" ColumnWidth="*" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Key.Name}" />
-                    <DataGridTextColumn Header="Size" Binding="{Binding Key.Lenght}" />
-                    <DataGridTextColumn Header="#Placed" Binding="{Binding Value}" />
-                    <DataGridTextColumn Header="#Required" Binding="{Binding Value}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding ShipType}"  />
+                    <DataGridTextColumn Header="Size" Binding="{Binding Length}" />
+                    <DataGridTextColumn Header="#Placed" Binding="{Binding NumberPlaced}"  />
+                    <DataGridTextColumn Header="#Required" Binding="{Binding NumberRequired}" />
                 </DataGrid.Columns>
                 
             </DataGrid>
-            
-            <Button Command="{Binding TileClick}" Content="TURED" Grid.Row="2"/>
+
+            <Button Click="Accept_Click" Content="Accept Placement" IsEnabled="{Binding PlacementValid}" Grid.Row="2"/>
 
         </Grid>
     </Grid>

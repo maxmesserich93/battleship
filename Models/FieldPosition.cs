@@ -7,6 +7,8 @@ using System.Text;
 
 namespace Models
 {
+
+
     [DataContract]
     public enum FieldPositionStatus
     {

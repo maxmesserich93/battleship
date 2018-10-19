@@ -15,42 +15,63 @@ namespace Models
         /// </summary>
         /// 
         [DataMember]
-        private FieldPosition[,] _fieldData;
+        private List<List<FieldPosition>> _fieldData;
         /// <summary>
         /// The List of placed ships on the field.
         /// </summary>
-        //[DataMember]
+        [DataMember]
         public List<Ship> Ships { get; set; }
 
-        //[DataMember]
+        [DataMember]
         public int Size { set; get; }
+
+        //public GameRuleSet GameRuleSet { set; get; }
 
         public Field(int size)
         {
             Ships = new List<Ship>();
+            //GameRuleSet = gameRuleSet;
             Size = size;
-            _fieldData = new FieldPosition[size, size];
-            for(int x=0; x<size; x++)
+            _fieldData = new List<List<FieldPosition>>();
+            for(int x=0; x< Size; x++)
             {
-                for(int y=0; y<size; y++)
+                var row = new List<FieldPosition>();
+                for(int y=0; y< Size; y++)
                 {
                     Coordinate coordinate = new Coordinate(x, y);
-                    _fieldData[x, y] = new FieldPosition(FieldPositionStatus.Default, coordinate);
+                    row.Add(new FieldPosition(FieldPositionStatus.Default, coordinate));
                 }
+                _fieldData.Add(row);
             }
+            
 
 
+        }
+
+        public FieldPosition _getPosition(Coordinate c)
+        {
+            return _fieldData[c.X][c.Y];
         }
 
         public void SetField(Coordinate coordinate, FieldPositionStatus fieldPositionStatus)
         {
-            Debug.WriteLine("   SET FIELD: "+coordinate+" : "+fieldPositionStatus);
-            _fieldData[coordinate.X, coordinate.Y].FieldPositionStatus = fieldPositionStatus;
+            _getPosition(coordinate).FieldPositionStatus = fieldPositionStatus;
         }
 
         public void Hover(Coordinate coordinate, bool value)
         {
-            _fieldData[coordinate.X, coordinate.Y].Hover = value;
+            _getPosition(coordinate).Hover = value;
+        }
+
+
+        public int ShipTypeCount(string shipTypeName)
+        {
+            return Ships.Count(s => s.Equals(shipTypeName));
+        }
+
+        public int ShipTypeCount(Ship shipType)
+        {
+            return Ships.Count(s => s.Type.Equals(shipType.Type));
         }
 
         /// <summary>
@@ -63,26 +84,24 @@ namespace Models
         {
             
             Coordinate coordinate = ship.StartCoordinate;
-            if(coordinate == null)
-            {
-                throw new NullReferenceException("StartCoordinate of the ship can not be null");
-            }
+
+                
+            //if (  Ships.Count(s => s.Type.Equals(ship.Type)) == GameRuleSet.GetShipTypeCount(ship))
+            //{
+            //    return false;
+            //}
+
+
             //Bounds-check
             if (ship.IsVertical)
             {
                 for (int i = 0; i < ship.Length; i++)
                 {
                     FieldPosition position = GetPosition(coordinate.X, coordinate.Y + i);
-
-                   
-
                     if (position == null || position.FieldPositionStatus != FieldPositionStatus.Default)
                     {
-
                         return false;
                     }
-
-
                 }
             }
             else
@@ -97,15 +116,14 @@ namespace Models
 
                 }
             }
-            Debug.WriteLine("ADDED THE SHIP "+ship);
             return true;
         }
 
 
 
-        public Ship PlaceShip(ShipPlacement placement)
+        public bool PlaceShip(Ship ship)
         {
-            return PlaceShip(placement.ShipType, placement.IsVertical, placement.StartCoordinate);
+            return PlaceShip(ship, ship.IsVertical, ship.StartCoordinate);
         }
 
         /// <summary>
@@ -114,16 +132,14 @@ namespace Models
         /// <param name="ship"></param>
         /// <param name="coordinate"></param>
         /// <returns></returns>
-        public Ship PlaceShip(ShipType shipType, bool vertical, Coordinate coordinate)
+        public bool PlaceShip(Ship ship, bool vertical, Coordinate coordinate)
         {
-            Ship ship = new Ship(shipType);
             ship.IsVertical = vertical;
             ship.StartCoordinate = coordinate;
-
-            if(ShipPlaceable(ship))
+            if (ShipPlaceable(ship))
             {
 
-                Ships.Add(ship);
+
                 ship.StartCoordinate = coordinate;
                 if (ship.IsVertical)
                 {
@@ -142,12 +158,13 @@ namespace Models
                         position.FieldPositionStatus = FieldPositionStatus.Ship;
                     }
                 }
-                return ship;
+                Ships.Add(ship);
+                return true;
 
 
             }
 
-            return null;
+            return false;
         }
         /// <summary>
         /// Shoots the field at the provided Coordinate.
@@ -233,7 +250,7 @@ namespace Models
                 return null;
             }
 
-            return _fieldData[x, y];
+            return _getPosition(new Coordinate(x, y));
         }
 
         public FieldPosition GetPosition(Coordinate coordinate)
@@ -252,7 +269,7 @@ namespace Models
             {
                 for (int a = 0; a < Size; a++)
                 {
-                    list.Add(_fieldData[a, i]);
+                    list.Add(_getPosition(new Coordinate(a,i)));
                 }
 
             }

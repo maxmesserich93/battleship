@@ -55,8 +55,8 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <Button x:Name="Start" Content="Start Game" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="200" Click="ConnectToServer"/>
-        <Button x:Name="Start_Copy" Content="Start Game" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Top" Width="200" Click="ConnectToServer"/>
+        <Button x:Name="Start" Content="Offline" Grid.Column="0" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="200" Click="ConnectToLocalServer"/>
+        <Button x:Name="Start_Copy" Content="Network" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Top" Width="200" Click="ConnectToServer"/>
         <!--<TextBox Name="server" Width="200" FontSize="15" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Path=ServerAddress, Mode=TwoWay, Converter={StaticResource converter}, ValidatesOnExceptions=True, NotifyOnValidationError=True, ValidatesOnDataErrors=True}">-->
     </Grid>
 

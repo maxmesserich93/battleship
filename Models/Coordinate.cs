@@ -1,10 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
 
 namespace Models
 {
+
+    /// <summary>
+    /// Extension Methods for Coordinates
+    /// </summary>
+    public static class CoordinateExtensions
+    {
+        public static List<Coordinate> GetVerticalList(this Coordinate start, int length)
+        {
+            var coordinates = new List<Coordinate>();
+            for (int i = 0; i < length; i++)
+            {
+                coordinates.Add(new Coordinate(start.X, start.Y + i));
+            }
+            return coordinates;
+
+        }
+
+        public static List<Coordinate> GetHorizontalList(this Coordinate start, int length)
+        {
+            var coordinates = new List<Coordinate>();
+            for (int i = 0; i < length; i++)
+            {
+                coordinates.Add(new Coordinate(start.X+i, start.Y));
+            }
+            return coordinates;
+
+        }
+
+        public static List<Coordinate> GetNeighbours(this Coordinate position, int max)
+        {
+            int[,] directions = new int[,]{ { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+            var list = new List<Coordinate>();
+            for (int i = 0; i < 4; i++)
+            {
+                var neighbour = position + new Coordinate(directions[i, 0], directions[i, 1]);
+                if (!(neighbour.X < 0 || neighbour.X >= max || neighbour.Y < 0 || neighbour.Y >= max))
+                {
+                    list.Add(neighbour);
+                }
+            }
+            return list;
+
+
+
+        }
+    }
+
+   
+
+
+
     [DataContract]
     public class Coordinate
     {
@@ -77,9 +129,8 @@ namespace Models
             return new Coordinate(a.X - b.X, a.Y - b.Y);
         }
 
-
-
-
+        //public static bool operator ==(Coordinate a, Coordinate b) => a.X == b.X && a.Y == b.Y;
+        //public static bool operator !=(Coordinate a, Coordinate b) => a.X != b.X || a.Y != b.Y;
     }
 
 }

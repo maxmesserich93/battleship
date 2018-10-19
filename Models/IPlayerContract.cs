@@ -15,30 +15,20 @@ namespace Models
     public interface IPlayerContract
     {
 
+        [OperationContract(IsOneWay =true)]
+        void ProvideIdentity(String uuid);
+        
+        //String Identity { set; get; }
         /// <summary>
         /// Tells the player that the game begins.
         /// </summary>
         /// <param name="gameRuleSet"></param>
         /// 
         [OperationContract(IsOneWay = true)]
-        void StartGame(GameRuleSet gameRuleSet);
-        /// <summary>
-        /// Tells the player to place ships.
-        /// </summary>
-        //[OneWay]
-        [OperationContract]
-        ShipPlacement[] RequestShipPlacement();
+        void GameRules(GameRuleSet gameRuleSet);
 
-        [OperationContract]
-        List<string> Turd();
-
-        ///// <summary>
-        ///// Tells the player to place a shot.
-        ///// </summary>
-        ///// <returns></returns>
-        //[OneWay]
-        [OperationContract]
-        Coordinate RequestShotPlacement();
+        [OperationContract(IsOneWay = true)]
+        void PlacementComplete(List<Ship> yourShips);
         /// <summary>
         /// 
         /// </summary>
@@ -55,14 +45,14 @@ namespace Models
         /// </summary>
         /// <param name="coordinate"></param>
         [OperationContract(IsOneWay = true)]
-        void OpponentShot(List<FieldPosition> fieldPositions);
+        void OpponentShot(Coordinate position, List<FieldPosition> fieldPositions);
 
         /// <summary>
         /// Tells the player whether his shot missed, hit or killed.
         /// </summary>
         /// <param name="fieldPositionStatuses"></param>
         [OperationContract(IsOneWay = true)]
-        void ShotResult(List<FieldPosition> fieldPositions);
+        void ShotResult(Coordinate position, List<FieldPosition> fieldPositions);
 
         ///// <summary>
         ///// Tells the player that the game is over and provided the name of the player who won.

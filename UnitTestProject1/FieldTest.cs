@@ -14,7 +14,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void BoundTest()
         {
-            Field field = new Field(10);
+            Field field = new Field(GameRuleSet.DEFAULT_RULES());
             Assert.IsFalse(field.IsInBound(-1, 0));
             Assert.IsFalse(field.IsInBound(0, -1));
             Assert.IsFalse(field.IsInBound(10, 0));
@@ -33,7 +33,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestPlaceShip()
         {
-            Field field = new Field(10);
+            Field field = new Field(GameRuleSet.DEFAULT_RULES());
 
             Ship ship = new Ship(new Cruiser());
             //Outof bounds because negative
@@ -42,12 +42,12 @@ namespace UnitTestProject1
 
 
             // cruiser can be placed at 0,0 vertically
-            Assert.IsNotNull(field.PlaceShip(new Cruiser(), true, new Coordinate(0, 0)));
-
-
+            Assert.IsNotNull(field.PlaceShip(new Cruiser(), true, new Coordinate(0, 1)));
+            Assert.IsNotNull(field.PlaceShip(new Destroyer(), true, new Coordinate(1, 1)));
+            Assert.IsNotNull(field.PlaceShip(new Destroyer(), false, new Coordinate(0, 0)));
             //Adding the same ship at a different position is okay.
 
-            Assert.IsNotNull(field.PlaceShip(new Cruiser(), true, new Coordinate(3, 2)));
+            Assert.IsNotNull(field.PlaceShip(new Cruiser(), false, new Coordinate(3, 2)));
 
 
             //Destroyer can not be placed a 0,0 horizontally because occupied
@@ -77,7 +77,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestShootCoordinate()
         {
-            Field field = new Field(10);
+            Field field = new Field(GameRuleSet.DEFAULT_RULES());
              //= new Ship(new Destroyer());
             Ship b = field.PlaceShip(new Destroyer(), true, new Coordinate(0, 0));
             field.PlaceShip(new Destroyer(),true, new Coordinate(5, 0));

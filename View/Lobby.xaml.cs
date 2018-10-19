@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ViewModel;
+using ViewModel.Lobby;
 
 namespace View
 {
@@ -25,6 +28,7 @@ namespace View
         {
             ViewModel = vm;
             this.DataContext = ViewModel;
+            ViewModel.PropertyChanged += Change;
             InitializeComponent();
         }
         /// <summary>
@@ -36,24 +40,69 @@ namespace View
             ViewModel.UpdateGameList();
         }
 
-        private void JoinGame(object sender, RoutedEventArgs e)
+
+
+
+        public void Change(object sender, PropertyChangedEventArgs e)
         {
+            Debug.WriteLine("CHANGE:" + sender + " , " + e.PropertyName);
+            if (e.PropertyName.Equals(nameof(ShipPlacementViewModel)))
+            {
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ShipPlacementWindow next = new ShipPlacementWindow(ViewModel.ShipPlacementViewModel);
+                    next.Show();
+                    this.Close();
+                });
+
+            }
+            if (e.PropertyName.Equals(nameof(GameViewModel)))
+            {
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var next = new GameWindow(ViewModel.GameViewModel);
+                    next.Show();
+                    this.Close();
+                });
+
+            }
+        }
+
+            private void JoinGame(object sender, RoutedEventArgs e)
+        {
+
+            ViewModel.Join();
             
         }
 
         private void BotMatch(object sender, RoutedEventArgs e)
         {
-            ShipPlacementViewModel shipPlacementViewModel = ViewModel.JoinBot();
+            ViewModel.JoinBot();
 
-            ShipPlacementWindow next = new ShipPlacementWindow(shipPlacementViewModel);
+            //ShipPlacementWindow next = new ShipPlacementWindow(shipPlacementViewModel);
 
-            next.Show();
-            //next.Show(shipPlacementViewModel);
-            this.Close();
+            //next.Show();
+            ////next.Show(shipPlacementViewModel);
+            //this.Close();
 
         }
 
+        private void HostGame(object sender, RoutedEventArgs e)
+        {
+            ViewModel.HostGame();
+        }
 
+        protected void Close()
+        {
+
+
+
+
+
+
+        }
 
 
 

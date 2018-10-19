@@ -28,9 +28,9 @@ namespace View
             switch (cast)
             {
                 case FieldPositionStatus.Default:
-                    return Brushes.LightGray;
+                    return Brushes.White;
                 case FieldPositionStatus.Ship:
-                    return Brushes.DarkGray;
+                    return Brushes.Black;
                 case FieldPositionStatus.ShotHit:
                     return Brushes.DarkOrange;
                 case FieldPositionStatus.ShotKill:
@@ -60,7 +60,7 @@ namespace View
             switch (cast)
             {
                 case FieldPositionStatus.Default:
-                    tmp = Brushes.LightGray;
+                    tmp = Brushes.LightSkyBlue;
                     break;
                 case FieldPositionStatus.Ship:
                     tmp = Brushes.DarkGray;
@@ -78,7 +78,6 @@ namespace View
             }
             if (b)
             {
-                Debug.WriteLine("HOVER: " + cast);
                 tmp = Brushes.LightGreen;
             }
 

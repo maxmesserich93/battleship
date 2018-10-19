@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://fontysvenlo.org/BattleService" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fontysvenlo.org/BattleService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://fontysvenlo.org/BattleService/Imports">
+      <xsd:import schemaLocation="http://localhost:8000/Service?xsd=xsd0" namespace="http://fontysvenlo.org/BattleService" />
+      <xsd:import schemaLocation="http://localhost:8000/Service?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8000/Service?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Models" />
+      <xsd:import schemaLocation="http://localhost:8000/Service?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IGameContract_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_GetAvailableGames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableGames" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_GetAvailableGames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableGamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_JoinGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinGame" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_HostGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:HostGame" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_HostGame_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HostGameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_ProvideShipPlacements_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProvideShipPlacements" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_ProvideShotPlacement_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProvideShotPlacement" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_JoinBotGame_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinBotGame" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_Ready_InputMessage">
+    <wsdl:part name="parameters" element="tns:Ready" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_Ready_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_ProvideIdentity_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ProvideIdentity" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_GameRules_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GameRules" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_PlacementComplete_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:PlacementComplete" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_Shoot_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Shoot" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_PlaceShips_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:PlaceShips" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_OpponentShot_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:OpponentShot" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_ShotResult_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ShotResult" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_GameOver_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:GameOver" />
+  </wsdl:message>
+  <wsdl:message name="IGameContract_Error_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Error" />
+  </wsdl:message>
+  <wsdl:portType msc:usingSession="true" name="IGameContract">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Logout">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/Logout" message="tns:IGameContract_Logout_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Login">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/Login" message="tns:IGameContract_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/LoginResponse" message="tns:IGameContract_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAvailableGames">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/GetAvailableGames" message="tns:IGameContract_GetAvailableGames_InputMessage" />
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/GetAvailableGamesResponse" message="tns:IGameContract_GetAvailableGames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="JoinGame">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/JoinGame" message="tns:IGameContract_JoinGame_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="HostGame">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/HostGame" message="tns:IGameContract_HostGame_InputMessage" />
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/HostGameResponse" message="tns:IGameContract_HostGame_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ProvideShipPlacements">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ProvideShipPlacements" message="tns:IGameContract_ProvideShipPlacements_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ProvideShotPlacement">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ProvideShotPlacement" message="tns:IGameContract_ProvideShotPlacement_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="JoinBotGame">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/JoinBotGame" message="tns:IGameContract_JoinBotGame_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ready">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/Ready" message="tns:IGameContract_Ready_InputMessage" />
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ReadyResponse" message="tns:IGameContract_Ready_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ProvideIdentity">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ProvideIdentity" message="tns:IGameContract_ProvideIdentity_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GameRules">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/GameRules" message="tns:IGameContract_GameRules_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PlacementComplete">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/PlacementComplete" message="tns:IGameContract_PlacementComplete_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Shoot">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/Shoot" message="tns:IGameContract_Shoot_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PlaceShips">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/PlaceShips" message="tns:IGameContract_PlaceShips_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="OpponentShot">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/OpponentShot" message="tns:IGameContract_OpponentShot_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ShotResult">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ShotResult" message="tns:IGameContract_ShotResult_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GameOver">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/GameOver" message="tns:IGameContract_GameOver_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Error">
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/Error" message="tns:IGameContract_Error_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
