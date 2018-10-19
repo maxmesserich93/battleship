@@ -115,7 +115,10 @@ namespace Models.GameLogic
 
         public bool PlaceShips(string playerId, List<Ship> placements)
         {
+
+           
             var playerIndex = _getPlayerNumber(playerId);
+            Debug.WriteLine("PlaceShips: " + playerIndex);
             //Check whether the placements are correct
             if (!Data.RuleSet.ValidateRules(placements))
             {
@@ -133,6 +136,7 @@ namespace Models.GameLogic
             if (Data.PlayerFields.ToList().All(kp => Data.RuleSet.ValidateRules(kp.Ships)))
             {
                 Data.Phase = GamePhase.InProgress;
+                Debug.WriteLine("TELLING " + Data.CurrentPlayer + " TO SHOOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + PlayerContracts[Data.CurrentPlayer]);
                 PlayerContracts[Data.CurrentPlayer].Shoot();
             }
             return true;
@@ -164,6 +168,8 @@ namespace Models.GameLogic
                 else
                 {
                     //Tell current player to shoot!
+                    Debug.WriteLine("TELLING " + Data.CurrentPlayer + " TO SHOOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + PlayerContracts[Data.CurrentPlayer]);
+                    PlayerContracts[Data.CurrentPlayer].Shoot();
                     var player = PlayerContracts[Data.CurrentPlayer];
                     player.Shoot();
                 }

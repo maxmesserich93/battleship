@@ -60,7 +60,9 @@ namespace ViewModel.Service
 
         public override  Task AwaitProvideShipPlacements(List<Ship> shipPlacements)
         {
-            return new Task(() => Service.ProvideShipPlacements(PlayerIdentity, shipPlacements));
+            var task =  new Task(() => Service.ProvideShipPlacements(PlayerIdentity, shipPlacements));
+            task.Start();
+            return task;
         }
 
         public override Task AwaitShotPlacement(Coordinate coordinate)
