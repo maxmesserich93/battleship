@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace MVCThing.Controllers
 
         public PlayersController(MVCThingContext context)
         {
+
             _context = context;
         }
 
@@ -28,6 +30,7 @@ namespace MVCThing.Controllers
         // GET: Players/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            Debug.WriteLine("Player Details");
             if (id == null)
             {
                 return NotFound();
@@ -43,9 +46,13 @@ namespace MVCThing.Controllers
             var playerVm = new PlayerDetailViewModel();
             playerVm.Player = player;
 
-            playerVm.PlayedGames = _context.Game.Where(game => game.PlayerOneID.Equals(player.ID) || game.PlayerTwoID.Equals(player.ID));
 
 
+            var playerGames = _context.Game.
+                Where(game => game.PlayerOneID.Equals(player.ID) || game.PlayerTwoID.Equals(player.ID)).
+                Select(game => new GameViewModel(game, _context.Player.Where(p => p.ID.Equals(game.PlayerOneID)).FirstOrDefault(), _context.Player.Where(p => p.ID.Equals(game.PlayerTwoID)).FirstOrDefault()));
+
+            playerVm.PlayedGames = playerGames;
 
 
             return View(playerVm);

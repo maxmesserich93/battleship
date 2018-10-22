@@ -1,7 +1,7 @@
 ﻿@model MVCThing.ViewModel.PlayerDetailViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Player Details";
 }
 
 <h2>Details</h2>
@@ -13,6 +13,13 @@
         Html.RenderPartial("PlayerDetails", Model.Player);
     }
 
+</div>
+<div>
+    <h3>Played Games</h3>
+    <partial class="panel-body">
+        @{
+            Html.RenderPartial("../Games/GameDetails", Model.PlayedGames);
+        }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Player.ID">Edit</a> |

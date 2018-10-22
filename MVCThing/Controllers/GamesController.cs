@@ -21,16 +21,13 @@ namespace MVCThing.Controllers
         }
 
 
-        private GameViewModel CreateGameViewModel(Game dbGame)
+
+        public GameViewModel CreateGameViewModel(Game dbGame)
         {
             var p1 = _context.Player.Where(player => player.ID.Equals(dbGame.PlayerOneID)).FirstOrDefault();
             var p2 = _context.Player.Where(player => player.ID.Equals(dbGame.PlayerTwoID)).FirstOrDefault();
-            Player winner = p1;
-            if (dbGame.Winner == 1)
-            {
-                winner = p2;
-            }
-            return new GameViewModel(dbGame.ID, p1, p2, winner, dbGame.Date, dbGame.Player1Hits, dbGame.Player2Hits);
+
+            return new GameViewModel(dbGame, p1, p2);
         }
 
         // GET: Games

@@ -9,7 +9,7 @@ namespace MVCThing.ViewModel
     public class PlayerDetailViewModel
     {
         public Player Player { set; get; }
-        public IEnumerable<Game> PlayedGames { set; get; }
+        public IEnumerable<GameViewModel> PlayedGames { set; get; }
 
     }
 }

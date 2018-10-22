@@ -20,8 +20,8 @@
 
 
             <div class="form-group">
-                <label asp-for="PlayerOneID" class="control-control"></label>
-                @Html.DropDownListFor(model => model.PlayerOneID, (SelectList)ViewBag.PlayerList2)
+                <label asp-for="PlayerOneID" class="control-label"></label>
+                @Html.DropDownListFor(model => model.PlayerOneID, (SelectList)ViewBag.PlayerList2, new { @class = "form-control" })
                 <span asp-validation-for="PlayerOneID" class="text-danger"></span>
             </div>
 
@@ -32,8 +32,8 @@
                 <span asp-validation-for="Player1Hits" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PlayerTwoID" class="control-control"></label>
-                @Html.DropDownListFor(model => model.PlayerTwoID, (SelectList)ViewBag.PlayerList2)
+                <label asp-for="PlayerTwoID" class="control-label"></label>
+                @Html.DropDownListFor(model => model.PlayerTwoID, (SelectList)ViewBag.PlayerList2, new { @class = "form-control" })
                 <span asp-validation-for="PlayerTwoID" class="text-danger"></span>
             </div>
             <div class="form-group">

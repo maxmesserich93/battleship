@@ -3,9 +3,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
@@ -30,11 +27,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td class="text-center">
-                    <a href="@Url.Action("Details", new {id = item.ID})" title="View Game Details">
-                        <div>@Html.DisplayFor(model => item.ID)</div>
-                    </a>
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
