@@ -1,0 +1,30 @@
+﻿@model MVCThing.Models.Player
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JoinDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JoinDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GamesPlayed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GamesPlayed)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GamesWon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GamesWon)
+        </dd>
+    </dl>
+</div>

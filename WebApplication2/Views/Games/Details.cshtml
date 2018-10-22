@@ -1,0 +1,66 @@
+﻿@model MVCThing.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerOneId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerOneId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerTwoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlayerTwoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1Hits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1Hits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2Hits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2Hits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Winner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Winner)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

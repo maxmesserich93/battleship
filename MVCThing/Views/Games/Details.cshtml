@@ -1,0 +1,57 @@
+﻿@model MVCThing.ViewModel.GameViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Game</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1Hits)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player1Hits)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2Hits)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player2Hits)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerOne.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlayerOne.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerTwo.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlayerOne.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h3>Winner</h3>
+    <partial class="panel-body">
+        @{
+            Html.RenderPartial("../Players/PlayerDetails", Model.Winner);
+        }
+</div>
+
+</partial>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
