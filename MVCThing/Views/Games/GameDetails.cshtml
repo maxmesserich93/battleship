@@ -1,7 +1,70 @@
-﻿
-@{
-    ViewData["Title"] = "GameDetails";
-}
-
-<h2>GameDetails</h2>
-
+﻿@model IEnumerable<MVCThing.ViewModel.GameViewModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerOne)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlayerTwo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Player1Hits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Player2Hits)
+            </th>
+            <th>
+                Winner
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    <a href="@Url.Action("Details", new {id = item.ID})" title="View Game Details">
+                        <div>@Html.DisplayFor(model => item.ID)</div>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Players", new {id = item.PlayerOne.ID})" title="View ´Player Details">
+                        <div>@Html.DisplayFor(model => item.PlayerOne.Name)</div>
+                    </a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Players", new {id = item.PlayerTwo.ID})" title="View ´Player Details">
+                        <div>@Html.DisplayFor(model => item.PlayerTwo.Name)</div>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player1Hits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Player2Hits)
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Players", new {id = item.Winner.ID})" title="View ´Player Details">
+                        <div>@Html.DisplayFor(model => item.Winner.Name)</div>
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

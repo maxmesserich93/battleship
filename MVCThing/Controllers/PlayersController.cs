@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCThing.Models;
+using MVCThing.ViewModel;
 
 namespace MVCThing.Controllers
 {
@@ -39,7 +40,15 @@ namespace MVCThing.Controllers
                 return NotFound();
             }
 
-            return View(player);
+            var playerVm = new PlayerDetailViewModel();
+            playerVm.Player = player;
+
+            playerVm.PlayedGames = _context.Game.Where(game => game.PlayerOneID.Equals(player.ID) || game.PlayerTwoID.Equals(player.ID));
+
+
+
+
+            return View(playerVm);
         }
 
         // GET: Players/Create
