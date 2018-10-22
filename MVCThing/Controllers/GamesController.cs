@@ -20,6 +20,7 @@ namespace MVCThing.Controllers
             _context = context;
         }
 
+
         private GameViewModel CreateGameViewModel(Game dbGame)
         {
             var p1 = _context.Player.Where(player => player.ID.Equals(dbGame.PlayerOneID)).FirstOrDefault();
