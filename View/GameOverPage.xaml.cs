@@ -17,12 +17,12 @@ using ViewModel;
 namespace View
 {
     /// <summary>
-    /// Interaction logic for GameOverScreen.xaml
+    /// Interaction logic for GameOverPage.xaml
     /// </summary>
-    public partial class GameOverScreen : Page
+    public partial class GameOverPage : Page
     {
         private GameOverViewModel ViewModel;
-        public GameOverScreen(GameOverViewModel vm)
+        public GameOverPage(GameOverViewModel vm)
         {
             ViewModel = vm;
             Debug.WriteLine(vm.LooserScore + " -- " + vm.WinnerScore + " --- " + vm.Result);

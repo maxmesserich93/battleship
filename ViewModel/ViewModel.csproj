@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExecutableCommand.cs" />
+    <Compile Include="field\CoordinateViewModel.cs" />
     <Compile Include="GameOverViewModel.cs" />
     <Compile Include="MasterViewModel.cs" />
     <Compile Include="Service\AbstractCallback.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="AbstractServiceViewModel.cs" />
     <Compile Include="GameViewModel.cs" />
     <Compile Include="Service\RemoteCallback.cs" />
-    <Compile Include="FieldViewModel.cs" />
+    <Compile Include="field\FieldViewModel.cs" />
     <Compile Include="Lobby\LobbyViewModel.cs" />
     <Compile Include="Service\LocalCallback.cs" />
     <Compile Include="Service\LocalGameServiceVM.cs" />

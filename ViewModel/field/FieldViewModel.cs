@@ -11,35 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ViewModel
+namespace ViewModel.field
 {
     public class FieldViewModel : AbstractServiceViewModel, INotifyPropertyChanged
     {
-        public class CoordinateViewModel : INotifyPropertyChanged
-        {
-            private FieldPosition _position;
-            public FieldPosition Position {
-                set {
-                    _position = value;
-                    if (value == null) { throw new Exception("CAN NOT BE NULL"); }
-                }
-                get { return _position; }
-            }
-            private bool _hover = false;
-            public bool Hover {
-                set { _hover = value; NotifyPropertyChanged(nameof(Hover)); }
-                get { return _hover; }
-            }
 
-            public event PropertyChangedEventHandler PropertyChanged;
-            private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
-            }
-        }
 
 
         public Field Field { set; get; }
@@ -52,21 +28,34 @@ namespace ViewModel
         private bool _enabled = false;
         public bool Enabled { set { _enabled = value;  } get { return _enabled; } }
         public event PropertyChangedEventHandler PropertyChanged;
+
+
         public FieldViewModel(AbstractServiceViewModel vm, GameRuleSet rules) : base(vm)
         {
             GameRuleSet = rules;
             Field = new Field(rules.FieldSize);
-            CoordinateViewModels = new ObservableCollection<CoordinateViewModel>(Field.GetData().Select(position => new CoordinateViewModel() { Position = position, Hover = false }));
+
+
+            CoordinateViewModels = new ObservableCollection<CoordinateViewModel>(Field.GetData().Select(position => new CoordinateViewModel(position, null, null,null)));
             Enabled = false;
             //placements = new List<ShipPlacement>();
 
         }
 
-        public ICommand TileClick { get; set; }
 
-        public ICommand TileHover { get; set; }
+        public FieldViewModel(Action<FieldPosition> click, Action<FieldPosition> hover, Action<FieldPosition> unhover, AbstractServiceViewModel vm, GameRuleSet rules) : base(vm)
+        {
+            GameRuleSet = rules;
+            Field = new Field(rules.FieldSize);
 
-        public ICommand TileUnhover { get; set; }
+
+            CoordinateViewModels = new ObservableCollection<CoordinateViewModel>(Field.GetData().Select(position => new CoordinateViewModel(position, click, hover,unhover)));
+            Enabled = false;
+            //placements = new List<ShipPlacement>();
+
+        }
+
+
 
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

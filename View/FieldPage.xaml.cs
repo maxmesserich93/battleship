@@ -17,7 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ViewModel;
-using static ViewModel.FieldViewModel;
+using ViewModel.field;
+
 
 namespace View
 {
@@ -31,34 +32,10 @@ namespace View
 
         public FieldPage(FieldViewModel viewModel, double _fieldSize)
         {
-
             Resources.Add("FieldSize", _fieldSize);
             ViewModel = viewModel;
             DataContext = ViewModel;
-            //ViewModel.TileClickHandler(null);
-            
-
-           
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Button b = sender as Button;
-
-            var field = b.DataContext as CoordinateViewModel;
-            ViewModel.TileClick?.Execute(field.Position);
-
-
-        }
-
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Button b = sender as Button;
-
-            var field = b.DataContext as CoordinateViewModel;
-            ViewModel.TileHover?.Execute(field.Position);
-
+            InitializeComponent();
         }
     }
-
 }

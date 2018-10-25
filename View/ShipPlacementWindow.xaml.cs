@@ -37,7 +37,7 @@ namespace View
 
             InitializeComponent();
             Frame = new FieldPage(ViewModel.FieldViewModel,20);
-            Frame.InitializeComponent();
+            //Frame.InitializeComponent();
             //Frame.Resources.Add("FieldSize", 50.0);
 
             Field.Navigate(Frame);
@@ -50,7 +50,7 @@ namespace View
         //    if (ViewModel.AcceptPlacement())
         //    {
         //        var gameModel = new GameViewModel(ViewModel.FieldViewModel,ViewModel);
-        //        GameWindow next = new GameWindow(gameModel);
+        //        GamePage next = new GamePage(gameModel);
 
         //        //next.Show();
         //        //this.Hide();

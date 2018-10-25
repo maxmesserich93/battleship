@@ -19,11 +19,15 @@ namespace ViewModel.Lobby
         /// </summary>
         List<GameInformation> _games;
         public ShipPlacementViewModel ShipPlacementViewModel { set; get; }
-        public GameViewModel GameViewModel { set; get; }
-        private GameRuleSet gameRules;
 
-        private Command _loadedCommand;
-        public Command LoadedCommand { get { return _loadedCommand; } }
+        public Command RefreshGameListCommand { get; }
+
+        public Command JoinGameCommand { get; }
+
+        public Command HostGameCommand { get; }
+       
+        public Command BotGameCommand { get; }
+
 
         public List<GameInformation> Games
         {
@@ -41,12 +45,11 @@ namespace ViewModel.Lobby
 
         public LobbyViewModel(AbstractGameServiceViewModel gameService) : base(gameService)
         {
-            //GameService.Callback.GameHandler = _awaitGameRules;
-            //GameService.Callback.PlaceShipHandler = _awaitPlaceShips;
-            //GameService.Callback.PlacementCompleteHandler = _awaitPlacementComplete;
             GameService.GameListHandler = (data) => { Games = data; Debug.WriteLine("Received Games: " + data); };
-            _loadedCommand = new Command(() => UpdateGameList());
-
+            RefreshGameListCommand = new Command(() => base.GameService.GetAvailableGames());
+            JoinGameCommand = new Command(() => SelectedGame != null, () => base.GameService.JoinGame(SelectedGame.ID));
+            HostGameCommand = new Command(() => base.GameService.HostGame());
+            BotGameCommand = new Command(() => base.GameService.JoinBotGame());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -56,33 +59,16 @@ namespace ViewModel.Lobby
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public GameInformation SelectedGame { get { return _data; } set{ _data = value;  OnPropertyChanged(nameof(SelectedGame)); OnPropertyChanged(nameof(GameSelected)); } }
+        public GameInformation SelectedGame {
+            get {
+                return _data;
+            }
+            set {
+                _data = value;
+                OnPropertyChanged(nameof(SelectedGame));
+                JoinGameCommand.RaiseCanExecuteChanged(); } }
         
         public bool GameSelected { get { return SelectedGame != null; } }
 
-
-
-        public void UpdateGameList()
-        {
-           base.GameService.GetAvailableGames();
-        }
-
-        public void Join()
-        {
-            base.GameService.JoinGame(SelectedGame.ID);
-        
-        }
-
-        public void HostGame()
-        {
-            base.GameService.HostGame();
-        }
-
-        public void JoinBot()
-        {
-            base.GameService.JoinBotGame();
-
-
-        }
     }
 }

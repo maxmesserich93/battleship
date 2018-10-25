@@ -76,13 +76,13 @@ namespace View
                     {
 
                         var gameVm = ViewModel.CurrentViewModel as GameViewModel;
-                        page = new GameWindow(gameVm);
+                        page = new GamePage(gameVm);
                     }
                     if (ViewModel.CurrentViewModel is GameOverViewModel)
                     {
 
                         var gameOverVm = ViewModel.CurrentViewModel as GameOverViewModel;
-                        page = new GameOverScreen(gameOverVm);
+                        page = new GameOverPage(gameOverVm);
                     }
 
                     Frame.Navigate(page);

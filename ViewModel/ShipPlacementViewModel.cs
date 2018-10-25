@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ViewModel.field;
 using ViewModel.Service;
 
 namespace ViewModel
@@ -137,18 +138,16 @@ namespace ViewModel
             //base.GameService.Callback.GameHandler = this.Initialize;
             GameRuleSet = rules;
 
-            FieldViewModel = new FieldViewModel(this, rules);
+            FieldViewModel = new FieldViewModel(Click, Hover, Unhover, this, rules);
 
             //Creates ShipPlacementDetails for each ShipType to be placed.
 
 
-            ShipPlacements = new ObservableCollection<ShipPlacementDetails>(rules.ShipTypeRules.ToList().Select(keyValue => new ShipPlacementDetails(keyValue.Key, ShipFactory.CREATE_SHIP(keyValue.Key).Length, keyValue.Value)).ToList());
+            ShipPlacements = new ObservableCollection<ShipPlacementDetails>(rules.ShipTypeRules.ToList().
+                Select(keyValue => new ShipPlacementDetails(keyValue.Key, ShipFactory.CREATE_SHIP(keyValue.Key).Length, keyValue.Value)).ToList());
             SelectedShipType = ShipPlacements.First();
 
             VerticalPlacement = true;
-
-            FieldViewModel.TileClick = new TypedCommand<FieldPosition>((field) => Click(field));
-            FieldViewModel.TileHover = new TypedCommand<FieldPosition>((field) => Hover(field));
 
             AcceptPlacementCommand = new Command(() => PlacementValid, () => AcceptPlacement());
 
@@ -166,18 +165,7 @@ namespace ViewModel
             }
         }
 
-        //public void Initialize(GameRuleSet gameRuleSet, string opponentName)
-        //{
-        //    Debug.WriteLine("ShipPlacementVM received gameRules:" + gameRuleSet);
-
-        //    GameRuleSet = gameRuleSet;
-        //    OpponentName = opponentName;
-
-
-
-        //}
-
-
+             
         /// <summary>
         /// Disables the selection of shipstype if the required number of ships of that type have been placed.
         ///
@@ -247,7 +235,7 @@ namespace ViewModel
             
 
             UpdateSelection();
-            Unhover();
+            Unhover(null);
 
         }
         
@@ -273,7 +261,7 @@ namespace ViewModel
 
         }
 
-        private void Unhover()
+        private void Unhover(FieldPosition position)
         {
             _highlighted.ForEach(p => FieldViewModel.UnhighlightCoordinate(p));
             _highlighted.Clear();

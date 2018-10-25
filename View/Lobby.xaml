@@ -11,10 +11,10 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding Path=DataContext.CloseCommand}"/>
+            <i:InvokeCommandAction Command="{Binding Path=CloseCommand}"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Path=LoadedCommand}" />
+            <i:InvokeCommandAction Command="{Binding Path=RefreshGameListCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -44,8 +44,8 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="Join" Content="Join game" Click="JoinGame" IsEnabled="{Binding Path=GameSelected}" Grid.Row="0" Grid.Column="0"/>
-                <Button x:Name="Refresh" Content="Refresh Games" Click="RefreshGames" Grid.Row="0" Grid.Column="1"/>
+                <Button x:Name="Join" Content="Join game" Command="{Binding JoinGameCommand}" Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="Refresh" Content="Refresh Games" Command="{Binding RefreshGameListCommand}" Grid.Row="0" Grid.Column="1"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -57,8 +57,8 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="NewMatch" Content="Open a game for others to join" Click="HostGame" Grid.Row="0" Grid.Column="0"/>
-                <Button x:Name="Bot" Content="Play against a bot" Click="BotMatch" Grid.Row="2" Grid.Column="0"/>
+                <Button x:Name="NewMatch" Content="Open a game for others to join" Command="{Binding HostGameCommand}" Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="Bot" Content="Play against a bot" Command="{Binding BotGameCommand}" Grid.Row="2" Grid.Column="0"/>
             </Grid>
             
 

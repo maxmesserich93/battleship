@@ -30,6 +30,8 @@ namespace ViewModel
         public AbstractGameServiceViewModel GameService { set; get; }
         public MasterViewModel MasterViewModel{set;get;}
 
+        public Command ConnectCommand { get; }
+        public Command LocalConnectCommand { get; }
         public string ServerAddressString { get {
                 return _serverAddress;
             } set { _serverAddress = value; } }
@@ -37,7 +39,8 @@ namespace ViewModel
        public LoginViewModel()
         {
             PlayerName = "Player";
-
+            ConnectCommand = new Command(() => Connect());
+            LocalConnectCommand = new Command(() => LocalConnect());
 
 
 

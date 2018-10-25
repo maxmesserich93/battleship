@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel.field;
 
 namespace ViewModel
 {
@@ -29,18 +30,14 @@ namespace ViewModel
         {
             OpponentName = opponentName;
             PlayerFieldVM = new FieldViewModel(this, gameRuleSet);
-            OpponentFieldVM = new FieldViewModel(this, gameRuleSet);
+            OpponentFieldVM = new FieldViewModel(OpponentFieldClick, Hover, Unhover, this, gameRuleSet);
 
             //Set Shotresult delegates of the callback to interact with the FieldViewModels
             GameService.Callback.PlayerShotHandler = OpponentFieldVM.HandleShotResult;
-            //GameService.Callback.PlayerShotHandler += PlayerShot;
             GameService.Callback.OpponentShotHandler = PlayerFieldVM.HandleShotResult;
-            //GameService.Callback.OpponentShotHandler += OpponentShot;
 
             GameService.Callback.PlayerTurnHandler = OnPlayerTurn;
             //Set ICommands of the FieldViewModel.
-            OpponentFieldVM.TileClick = new TypedCommand<FieldPosition>(OpponentFieldClick);
-            OpponentFieldVM.TileHover = new TypedCommand<FieldPosition>(Hover);
 
             //Set ships set by the player and approved by the GameService.
             placedShips.ForEach(ship => PlayerFieldVM.PlaceShip(ship));
@@ -83,13 +80,17 @@ namespace ViewModel
 
         private void Hover(FieldPosition position)
         {
-            if (_hover != null)
-            {
-                OpponentFieldVM.UnhighlightCoordinate(_hover.Coordinate);
-            }
+
             OpponentFieldVM.HighlightCoordinate(position.Coordinate);
             _hover = position;
 
+        }
+
+        private void Unhover(FieldPosition position)
+        {
+
+            OpponentFieldVM.UnhighlightCoordinate(position.Coordinate);
+            //throw new Exception("ASDASDASDd");
         }
     }
 }
