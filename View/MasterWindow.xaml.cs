@@ -38,6 +38,21 @@ namespace View
 
         }
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+
+            if (MessageBox.Show("Lobby: Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+                base.OnClosing(e);
+            }
+            else
+            {
+                ViewModel.GameService.Close();
+                Application.Current.Shutdown();
+            }
+        }
+
         public void Change(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals(nameof(ViewModel.CurrentViewModel))){

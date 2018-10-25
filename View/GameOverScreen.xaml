@@ -9,7 +9,7 @@
     <Page.Resources>
 
     </Page.Resources>
-        <Grid>
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"></RowDefinition>
@@ -17,12 +17,14 @@
                 <RowDefinition Height="100"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                
+            </Grid.ColumnDefinitions>
 
-        </Grid>
-        <Label Name="ResultLabel" Content="{Binding Path=Result}" Grid.Row="0" HorizontalAlignment="Center"/>
-        <Label Name="ResultLabe1l" Content="HALLO" Grid.Row="0" HorizontalAlignment="Center"/>
-        <Label Name="Winner" Content="{Binding Path=WinnerScore}" Grid.Row="2" HorizontalAlignment="Center"/>
-        <Label Name="Loose" Content="{Binding Path=LooserScore}" Grid.Row="3" HorizontalAlignment="Center"/>
-        <Button Name="asd" Content="Close" Grid.Row="0" HorizontalAlignment="Center" Width="100" Height="20"/>
+
+        <Label Name="ResultLabe1l" Content="{Binding Path=Result}" Grid.Row="1" HorizontalAlignment="Center" FontSize="40"/>
+        <Label Name="Winner" Content="{Binding Path=WinnerScore}" Grid.Row="2" HorizontalAlignment="Center" FontSize="20"/>
+        <Label Name="Loose" Content="{Binding Path=LooserScore}" Grid.Row="3" HorizontalAlignment="Center" FontSize="20"/>
+        <Button Name="asd" Content="Back to the Lobby" Command="{Binding Path=BackToLobbyCommand}" Grid.Row="4" HorizontalAlignment="Center" Width="100" Height="20"/>
     </Grid>
 </Page>

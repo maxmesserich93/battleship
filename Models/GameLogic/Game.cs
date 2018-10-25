@@ -99,19 +99,21 @@ namespace Models.GameLogic
             var playerIndex = _getPlayerNumber(playerId);
 
             Console.WriteLine("QUIT GAME " + playerIndex);
-            if(playerIndex == null || playerIndex == -1)
-            {
+
                 int maxScore = (int)Math.Pow(Data.RuleSet.FieldSize, 2);
                 if (playerIndex == 0)
                 {
                     PlayerContracts[1].GameOver(maxScore, -1);
+                    Debug.WriteLine("TOLD "+PlayerDataList[1].Name);
                 }
                 else
                 {
+                    Debug.WriteLine("TOLD " + PlayerDataList[0].Name);
+
                     PlayerContracts[0].GameOver(maxScore, -1);
                 }
 
-            }
+            
 
 
             //var index = 0;
@@ -193,7 +195,7 @@ namespace Models.GameLogic
 
 
                     PlayerContracts[0].GameOver(Data.GetPlayerScore(0), Data.GetPlayerScore(1));
-                    PlayerContracts[1].GameOver(Data.GetPlayerScore(0), Data.GetPlayerScore(1));
+                    PlayerContracts[1].GameOver(Data.GetPlayerScore(1), Data.GetPlayerScore(0));
                     Console.WriteLine("Game OVER");
                     Data.Phase = GamePhase.Finished;
                     GameOver?.Invoke(Data.Id);

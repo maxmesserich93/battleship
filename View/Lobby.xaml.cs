@@ -94,24 +94,6 @@ namespace View
             ViewModel.HostGame();
         }
 
-        //protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        //{
-        //    if (!this.IsVisible)
-        //    {
-        //        ViewModel.GameService.Close();
-        //        Application.Current.Shutdown();
-        //        return;
-        //    }
-        //    if (MessageBox.Show("Lobby: Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-        //    {
-        //        e.Cancel = true;
-        //        base.OnClosing(e);
-        //    }
-        //    else
-        //    {
-        //        ViewModel.GameService.Close();
-        //        Application.Current.Shutdown();
-        //    }
-        //}
+
     }
 }

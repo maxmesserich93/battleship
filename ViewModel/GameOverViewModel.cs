@@ -13,6 +13,7 @@ namespace ViewModel
         public string WinnerScore { get; }
         public string LooserScore { get; }
 
+        public Command BackToLobbyCommand { get; set; }
 
         public GameOverViewModel(int yourScore, int opponentScore, string opponentName, AbstractServiceViewModel vm) : base(vm)
         {

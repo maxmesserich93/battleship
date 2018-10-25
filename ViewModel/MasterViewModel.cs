@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -21,7 +22,8 @@ namespace ViewModel
         private GameRuleSet _gameRuleSet;
         private string _opponentName;
         public event PropertyChangedEventHandler PropertyChanged;
-
+        Command _backToLobbyCommand;
+        public Command BackToLobbyCommand { get { return _backToLobbyCommand; } }
         public AbstractServiceViewModel CurrentViewModel
         {
             set
@@ -35,14 +37,18 @@ namespace ViewModel
             }
         }
 
+        private LobbyViewModel lobbyVm;
+
         public MasterViewModel(AbstractGameServiceViewModel gameService) : base(gameService)
         {
-            CurrentViewModel = new LobbyViewModel(gameService);
+            lobbyVm = new LobbyViewModel(gameService);
+            CurrentViewModel = lobbyVm;
 
             gameService.Callback.GameHandler = _onGameRules;
             gameService.Callback.PlaceShipHandler = _onPlaceShips;
             gameService.Callback.PlacementCompleteHandler = _onPlacementComplete;
             gameService.Callback.GameOverHandler = _onGameOver;
+            _backToLobbyCommand = new Command(() => CurrentViewModel = lobbyVm);
 
         }
         /// <summary>
@@ -74,7 +80,11 @@ namespace ViewModel
 
         private void _onGameOver(int yourScore, int opponentScore)
         {
-            CurrentViewModel = new GameOverViewModel(yourScore, opponentScore, _opponentName, this);
+            Debug.WriteLine("GAME OVER!");
+            var gameOverVm = new GameOverViewModel(yourScore, opponentScore, _opponentName, this);
+            gameOverVm.BackToLobbyCommand = _backToLobbyCommand;
+            CurrentViewModel = gameOverVm;
+
         }
 
 
