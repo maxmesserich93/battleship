@@ -48,7 +48,11 @@ namespace Models.GameLogic
         public void Initialize()
         {
             Debug.WriteLine("GAME INIT: "+Data.Phase);
-            PlayerContracts.ForEach(c => c.GameRules(Data.RuleSet));
+
+            PlayerContracts[0].GameRules(Data.RuleSet, PlayerDataList[1].Name);
+
+            PlayerContracts[1].GameRules(Data.RuleSet, PlayerDataList[0].Name);
+
             if (Data.Phase == GamePhase.Init)
             {
                 //Tell players to place their ships
@@ -63,20 +67,23 @@ namespace Models.GameLogic
                 {
                     var playerShips = Data.PlayerFields[i].Ships;
                     PlayerContracts[i].PlacementComplete(playerShips);
-                    Data.PlayerShots[0].ForEach(shot =>
-                    {
-                        var shotResult = Data.PlayerShotResults[0][shot];
-                        PlayerContracts[0].ShotResult(shot, shotResult);
-                        PlayerContracts[1].OpponentShot(shot, shotResult);
-                    });
-                    Data.PlayerShots[1].ForEach(shot =>
-                    {
-                        var shotResult = Data.PlayerShotResults[1][shot];
-                        PlayerContracts[1].ShotResult(shot, shotResult);
-                        PlayerContracts[0].OpponentShot(shot, shotResult);
-                    });
+                    Debug.WriteLine(" ---------------------------------------PLACEMENTCOMPLETE INVOKED!");
+
 
                 }
+                Data.PlayerShots[0].ForEach(shot =>
+                {
+                    var shotResult = Data.PlayerShotResults[0][shot];
+                    PlayerContracts[0].ShotResult(shot, shotResult);
+                    PlayerContracts[1].OpponentShot(shot, shotResult);
+                });
+                Data.PlayerShots[1].ForEach(shot =>
+                {
+                    var shotResult = Data.PlayerShotResults[1][shot];
+                    PlayerContracts[1].ShotResult(shot, shotResult);
+                    PlayerContracts[0].OpponentShot(shot, shotResult);
+                });
+                
             }
         }
 
@@ -94,7 +101,16 @@ namespace Models.GameLogic
             Console.WriteLine("QUIT GAME " + playerIndex);
             if(playerIndex == null || playerIndex == -1)
             {
-                PlayerContracts.ForEach(player => player.GameOver(" Opponent quit the game"));
+                int maxScore = (int)Math.Pow(Data.RuleSet.FieldSize, 2);
+                if (playerIndex == 0)
+                {
+                    PlayerContracts[1].GameOver(maxScore, -1);
+                }
+                else
+                {
+                    PlayerContracts[0].GameOver(maxScore, -1);
+                }
+
             }
 
 
@@ -136,21 +152,35 @@ namespace Models.GameLogic
             if (Data.PlayerFields.ToList().All(kp => Data.RuleSet.ValidateRules(kp.Ships)))
             {
                 Data.Phase = GamePhase.InProgress;
-                Debug.WriteLine("TELLING " + Data.CurrentPlayer + " TO SHOOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + PlayerContracts[Data.CurrentPlayer]);
+                for (int i = 0; i < 2; i++)
+                {
+                    var playerShips = Data.PlayerFields[i].Ships;
+                    PlayerContracts[i].PlacementComplete(playerShips);
+                    Debug.WriteLine(" ---------------------------------------PLACEMENTCOMPLETE INVOKED!");
+                    
+
+                }
                 PlayerContracts[Data.CurrentPlayer].Shoot();
+                //Debug.WriteLine("TELLING " + Data.CurrentPlayer + " TO SHOOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + PlayerContracts[Data.CurrentPlayer]);
             }
             return true;
         }
+
+
 
         public void Shoot(string playerId, Coordinate coordinate)
         {
             var playerIndex = _getPlayerNumber(playerId);
 
             var result = Data.Shoot(playerIndex, coordinate);
+            Debug.WriteLine("Shooting "+PlayerDataList[playerIndex].Name+" :::: "+playerIndex+" : "+coordinate);
+
 
             if (result != null)
             {
-
+                Debug.WriteLine("SHOOT RESULT");
+                result.ForEach(a => Debug.Write(a + " -- "));
+                Debug.WriteLine("");
                 PlayerContracts[Data.CurrentPlayerData()].ShotResult(coordinate, result);
                 PlayerContracts[Data.WaitingPlayerData()].OpponentShot(coordinate, result);
                 Data.NextPlayer();
@@ -159,8 +189,11 @@ namespace Models.GameLogic
                 if (deadPlayer != null)
                 {
                     var index = Data.PlayerFields.IndexOf(deadPlayer);
-                    deadPlayer.GetData().ToList().ForEach(p => Debug.WriteLine(index + " : " + p));
-                    PlayerContracts.ForEach(player => player.GameOver(PlayerDataList[index].Name));
+
+
+
+                    PlayerContracts[0].GameOver(Data.GetPlayerScore(0), Data.GetPlayerScore(1));
+                    PlayerContracts[1].GameOver(Data.GetPlayerScore(0), Data.GetPlayerScore(1));
                     Console.WriteLine("Game OVER");
                     Data.Phase = GamePhase.Finished;
                     GameOver?.Invoke(Data.Id);
@@ -174,9 +207,6 @@ namespace Models.GameLogic
                     player.Shoot();
                 }
             }
-
-            //throw new Exception(playerId + " - " + PlayerDataList[playerIndex].Name + " : ");
-
         }
 
     }

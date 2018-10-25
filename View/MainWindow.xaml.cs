@@ -32,7 +32,7 @@ namespace View
 
         public ViewModel.LoginViewModel ViewModel { get; }
        
-       
+       //public MasterViewModel Master { get; }
 
 
         public MainWindow()
@@ -45,29 +45,47 @@ namespace View
 
         }
 
+
+        //public void Change(object sender, PropertyChangedEventArgs e)
+        //{
+        //    Debug.WriteLine("CHANGE:" + sender + " , " + e.PropertyName);
+        //    if(e.PropertyName.Equals(nameof()))
+
+        //}
+
         public void Change(object sender, PropertyChangedEventArgs e)
         {
             Debug.WriteLine("CHANGE:" + sender + " , " + e.PropertyName);
-            if (e.PropertyName.Equals(nameof(ShipPlacementViewModel)))
+            Application.Current.Dispatcher.Invoke(() =>
             {
+                var next = new MasterWindow(ViewModel.MasterViewModel);
 
-
-                ShipPlacementWindow next = new ShipPlacementWindow(ViewModel.ShipPlacementViewModel);
                 next.Show();
                 this.Close();
-            }
-            if (e.PropertyName.Equals(nameof(LobbyViewModel)))
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    var next = new Lobby(ViewModel.LobbyViewModel);
-                    next.Show();
-                    this.Close();
-                });
+            });
 
-            }
 
-        } 
+
+            //if (e.PropertyName.Equals(nameof(ShipPlacementViewModel)))
+            //{
+
+
+            //    ShipPlacementWindow next = new ShipPlacementWindow(ViewModel.ShipPlacementViewModel);
+            //    next.Show();
+            //    this.Close();
+            //}
+            //if (e.PropertyName.Equals(nameof(LobbyViewModel)))
+            //{
+            //    Application.Current.Dispatcher.Invoke(() =>
+            //    {
+            //        var next = new Lobby(ViewModel.LobbyViewModel);
+            //        next.Show();
+            //        this.Close();
+            //    });
+
+            //}
+
+        }
 
 
 
@@ -87,36 +105,6 @@ namespace View
             ViewModel.LocalConnect();
 
 
-
-
-        }
-
-        private void ConnectToServerA(object sender, RoutedEventArgs e)
-        {
-
-
-            //InstanceContext instanceContext;
-
-            //ConsoleApp1.ServiceReference2.GameContractClient server = null;
-
-
-            /////instanceContext needs a reference to the server
-            //instanceContext = new InstanceContext(new ConsoleApp1.StubContract(null));
-
-
-
-
-
-            //server = new ConsoleApp1.ServiceReference2.GameContractClient(instanceContext);
-
-            //bool a  = server.Login("asd");
-
-            //throw new ArgumentException(a.ToString());
-
-
-            //server.Endpoint.Binding.SendTimeout = TimeSpan.FromSeconds(0.5);
-            //EndpointAddress address = new EndpointAddress("http://localhost:8000/Service/Service");
-            //server.Endpoint.Address = address;
 
 
         }

@@ -16,9 +16,9 @@ namespace ViewModel.Service
             throw new NotImplementedException();
         }
 
-        public void GameOver(string winner)
+        public void GameOver(int yourScore, int opponentScore)
         {
-            base.GameOverHandler?.Invoke(winner);
+            base.GameOverHandler?.Invoke(yourScore, opponentScore);
         }
 
         public void OpponentShot(Coordinate coordinate, List<FieldPosition> fieldPositions)
@@ -26,20 +26,11 @@ namespace ViewModel.Service
             base.OpponentShotHandler?.Invoke(fieldPositions.ToArray());
         }
 
-        public void PlaceShips()
+        public new void PlaceShips()
         {
             base.PlaceShipHandler?.Invoke();
         }
 
-        public Ship[] RequestShipPlacement()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Coordinate RequestShotPlacement()
-        {
-            throw new NotImplementedException();
-        }
 
         public void Shoot()
         {
@@ -56,18 +47,14 @@ namespace ViewModel.Service
             }
         }
 
-        public void GameRules(GameRuleSet gameRuleSet)
+        public void GameRules(GameRuleSet gameRuleSet, string opponent)
         {
-            Debug.WriteLine("LocalCallback.StartGame: "+GameHandler);
+            Debug.WriteLine("-===================== LocalCallback.StartGame: "+GameHandler+", OPPONENT: " + opponent);
        
 
-            base.GameHandler?.Invoke(gameRuleSet);
+            base.GameHandler?.Invoke(gameRuleSet, opponent);
         }
 
-        public List<string> Turd()
-        {
-            throw new NotImplementedException();
-        }
 
         public void ProvideIdentity(string uuid)
         {
@@ -76,8 +63,9 @@ namespace ViewModel.Service
 
 
 
-        public void PlacementComplete(List<Ship> yourShips)
+        public new void PlacementComplete(List<Ship> yourShips)
         {
+            
             base.PlacementCompleteHandler?.Invoke(yourShips);
         }
 

@@ -25,7 +25,7 @@ namespace Models
         /// <param name="gameRuleSet"></param>
         /// 
         [OperationContract(IsOneWay = true)]
-        void GameRules(GameRuleSet gameRuleSet);
+        void GameRules(GameRuleSet gameRuleSet, string opponentName);
 
         [OperationContract(IsOneWay = true)]
         void PlacementComplete(List<Ship> yourShips);
@@ -60,7 +60,7 @@ namespace Models
         ///// <param name="winner"></param>
         //[OneWay]
         [OperationContract(IsOneWay =true)]
-        void GameOver(string winner);
+        void GameOver(int yourScore, int opponentScore);
         [OperationContract(IsOneWay = true)]
         void Error(string message);
     }

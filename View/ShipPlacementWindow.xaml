@@ -1,12 +1,13 @@
-﻿<Window x:Class="View.ShipPlacementWindow"
+﻿<Page x:Class="View.ShipPlacementWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="ShipPlacementWindow" Width="650" Height="340">
-    <Window.Resources>
+    <Page.Resources>
         <local:BoolInverterConverter x:Key="converter"></local:BoolInverterConverter>
         <Style TargetType="{x:Type DataGridRow}">
             <Setter Property="BorderBrush" Value="LightGray" />
@@ -21,7 +22,7 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
             </Style.Resources>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"></ColumnDefinition>
@@ -43,12 +44,13 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <DataGrid ItemsSource="{Binding Path=ShipPlacements}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
+            <DataGrid Name="DataGrid" ItemsSource="{Binding Path=ShipPlacements}" Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False"
                       SelectionMode="Single" SelectedValue="{Binding SelectedShipType, Mode=TwoWay}" ColumnWidth="*" Grid.Column="0" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding ShipType}"  />
@@ -56,12 +58,30 @@
                     <DataGridTextColumn Header="#Placed" Binding="{Binding NumberPlaced}"  />
                     <DataGridTextColumn Header="#Required" Binding="{Binding NumberRequired}" />
                 </DataGrid.Columns>
-                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding OnShipTypeSelectionCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},
+                                           Path=IsSelected}" Value="true">
+                                <Setter Property="Background" Value="Blue" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},
+                                           Path=IsFocues}" Value="true">
+                                <Setter Property="Background" Value="Transparent" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
             </DataGrid>
 
-            <Button Click="Accept_Click" Content="Accept Placement" IsEnabled="{Binding PlacementValid}" Grid.Row="2"/>
+            <Button Command="{Binding AcceptPlacementCommand}" Content="Accept Placement" Grid.Row="2"/>
 
         </Grid>
     </Grid>
     
-</Window>
+</Page>

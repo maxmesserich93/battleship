@@ -16,7 +16,7 @@ namespace Models.Player {
         public void PlaceShips() { }
         public Coordinate PlaceShot(Field field) { return null; }
 
-        public void GameRules(GameRuleSet gameRuleSet)
+        public void GameRules(GameRuleSet gameRuleSet, string opponent)
         {
             //throw new NotImplementedException();
         }
@@ -40,7 +40,7 @@ namespace Models.Player {
         {
         }
 
-        public void GameOver(string winner)
+        public void GameOver(int yourScore, int opponentScore)
         {
         }
 
@@ -49,12 +49,6 @@ namespace Models.Player {
             
         }
 
-        public List<string> Turd()
-        {
-            var a = new List<string>();
-            a.Add("ASD");
-            return a;
-        }
 
         public void Shoot()
         {

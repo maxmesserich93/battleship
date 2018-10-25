@@ -277,6 +277,11 @@ namespace Models
             return list;
         }
 
+        public int CountHitPositions()
+        {
+            return _fieldData.SelectMany(list => list).Count(fieldPosition => fieldPosition.FieldPositionStatus == FieldPositionStatus.ShotHit || fieldPosition.FieldPositionStatus == FieldPositionStatus.ShotKill);
+        }
+
 
     }
 }

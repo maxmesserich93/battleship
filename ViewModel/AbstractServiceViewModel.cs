@@ -16,9 +16,8 @@ namespace ViewModel
         {
             get
             {
-                return new RelayCommand(param =>
+                return new Command(() =>
                 {
-                    Debug.WriteLine("asasdasdasdasdasdasd");
                     if (MessageBox.Show("Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     {
 

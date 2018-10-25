@@ -18,7 +18,7 @@ namespace View
     /// <summary>
     /// Interaction logic for GameWindow.xaml
     /// </summary>
-    public partial class GameWindow : Window
+    public partial class GameWindow : Page
     {
 
         public GameViewModel ViewModel { set; get; }
@@ -28,7 +28,11 @@ namespace View
         public GameWindow(GameViewModel gameViewModel) : base()
         {
             ViewModel = gameViewModel;
+            DataContext = ViewModel;
+
             InitializeComponent();
+
+
             PlayerField = new FieldPage(ViewModel.PlayerFieldVM, 20);
             PlayerField.InitializeComponent();
             PlayerField.IsEnabled = false;
@@ -37,41 +41,11 @@ namespace View
 
             OpponentFieldFrame.Navigate(OpponentField);
             PlayerFieldFrame.Navigate(PlayerField);
-            ViewModel.GameService.Callback.GameOverHandler = OnGameOver;
 
 
 
         }
-        public void OnGameOver(string winner)
-        {
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var winnerScreen = new GameOverScreen(false, winner);
-                winnerScreen.ShowDialog();
-                base.Close();
-            });
-
-            
-
-        }
-
-
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-            {
-                e.Cancel = true;
-                base.OnClosing(e);
-            }
-            else
-            {
-                ViewModel.GameService.Close();
-                Application.Current.Shutdown();
-            }
-
-
-        }
 
     }
 }

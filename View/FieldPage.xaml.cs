@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ViewModel;
+using static ViewModel.FieldViewModel;
 
 namespace View
 {
@@ -44,8 +45,8 @@ namespace View
         {
             Button b = sender as Button;
 
-            var field = b.DataContext as FieldPosition;
-            ViewModel.TileClick?.Execute(field);
+            var field = b.DataContext as CoordinateViewModel;
+            ViewModel.TileClick?.Execute(field.Position);
 
 
         }
@@ -54,8 +55,8 @@ namespace View
         {
             Button b = sender as Button;
 
-            var field = b.DataContext as FieldPosition;
-            ViewModel.TileHover?.Execute(field);
+            var field = b.DataContext as CoordinateViewModel;
+            ViewModel.TileHover?.Execute(field.Position);
 
         }
     }

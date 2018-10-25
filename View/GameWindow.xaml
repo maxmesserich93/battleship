@@ -1,4 +1,4 @@
-﻿<Window x:Class="View.GameWindow"
+﻿<Page x:Class="View.GameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,18 +9,18 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="300"></RowDefinition>
             </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-            <Label Name="PlayerFieldLabel" Content="Your Field" Grid.Column="0" Grid.Row="0"/>
-            <Label Name="OpponentFieldLabel" Content="Your Field" Grid.Column="1" Grid.Row="0"/>
+            <Label Name="PlayerFieldLabel" Content="You" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"/>
+            <Label Name="OpponentFieldLabel" Content="{Binding Path=OpponentName}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
             <Frame Name="PlayerFieldFrame" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Frame Name="OpponentFieldFrame" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
 
     </Grid>
-</Window>
+</Page>

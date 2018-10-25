@@ -35,7 +35,7 @@ namespace Models.Player
 
         }
 
-        public void GameOver(string winner)
+        public void GameOver(int yourScore, int opponentScore)
         {
             
         }
@@ -94,7 +94,7 @@ namespace Models.Player
 
 
 
-        public void GameRules(GameRuleSet gameRuleSet)
+        public void GameRules(GameRuleSet gameRuleSet, string oppoenent)
         {
             _gameRuleSet = gameRuleSet;
             for (int x = 0; x < gameRuleSet.FieldSize; x++)
@@ -148,9 +148,9 @@ namespace Models.Player
 
         public void ShotResult(Coordinate position, List<FieldPosition> fieldPositions)
         {
-            Debug.WriteLine("AI SHOTRESULT: " + position);
-            fieldPositions.ForEach(p => Debug.Write(p +" "));
-            Debug.WriteLine("");
+            //Debug.WriteLine("AI SHOTRESULT: " + position);
+            //fieldPositions.ForEach(p => Debug.Write(p +" "));
+            //Debug.WriteLine("");
             HashSet<int> collumn = null;
             _unshotPositions.TryGetValue(position.Y, out collumn);
             if(collumn != null)
@@ -163,11 +163,11 @@ namespace Models.Player
             }
 
 
-            _unshotPositions.ToList().ForEach(rowCollumn => {
+            //_unshotPositions.ToList().ForEach(rowCollumn => {
 
-                rowCollumn.Value.ToList().ForEach(x => Debug.Write(x + " "));
-                Debug.WriteLine("");
-                });
+            //    rowCollumn.Value.ToList().ForEach(x => Debug.Write(x + " "));
+            //    Debug.WriteLine("");
+            //    });
 
             _shots.Add(position);
             //_shotResults.Add(position, fieldPositions);

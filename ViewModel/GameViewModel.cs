@@ -14,6 +14,7 @@ namespace ViewModel
     {
         public FieldViewModel PlayerFieldVM { set; get; }
         public FieldViewModel OpponentFieldVM { set; get; }
+        public string OpponentName { get; }
         public bool PlayerTurn { set; get; }
         private bool _over;
         public bool GameOver { set { _over = value; OnPropertyChanged(nameof(GameOver)); } get { return _over; } }
@@ -24,51 +25,69 @@ namespace ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public GameViewModel(FieldViewModel playerField, AbstractServiceViewModel vm) : base(vm)
+        public GameViewModel(GameRuleSet gameRuleSet, List<Ship> placedShips, string opponentName, AbstractServiceViewModel vm) : base(vm)
         {
-            PlayerFieldVM = playerField;
-            OpponentFieldVM = new FieldViewModel(this, PlayerFieldVM.GameRuleSet);
-            GameService.Callback.PlayerShotHandler += OpponentFieldVM.HandleShotResult;
-            GameService.Callback.OpponentShotHandler += PlayerFieldVM.HandleShotResult;
+            OpponentName = opponentName;
+            PlayerFieldVM = new FieldViewModel(this, gameRuleSet);
+            OpponentFieldVM = new FieldViewModel(this, gameRuleSet);
+
+            //Set Shotresult delegates of the callback to interact with the FieldViewModels
+            GameService.Callback.PlayerShotHandler = OpponentFieldVM.HandleShotResult;
+            //GameService.Callback.PlayerShotHandler += PlayerShot;
+            GameService.Callback.OpponentShotHandler = PlayerFieldVM.HandleShotResult;
+            //GameService.Callback.OpponentShotHandler += OpponentShot;
+
             GameService.Callback.PlayerTurnHandler = OnPlayerTurn;
-            OpponentFieldVM.TileClick = new TypedRelayCommand<FieldPosition>(OpponentFieldClick);
-            OpponentFieldVM.TileHover = new TypedRelayCommand<FieldPosition>(Hover); 
+            //Set ICommands of the FieldViewModel.
+            OpponentFieldVM.TileClick = new TypedCommand<FieldPosition>(OpponentFieldClick);
+            OpponentFieldVM.TileHover = new TypedCommand<FieldPosition>(Hover);
+
+            //Set ships set by the player and approved by the GameService.
+            placedShips.ForEach(ship => PlayerFieldVM.PlaceShip(ship));
+            
+
+            if(OpponentName == null || opponentName.Length == 0)
+            {
+                throw new Exception("NAME NOT THERE WHAT THE FUCK");
+            }
+
+
         }
 
         private void OnPlayerTurn()
         {
-            //Debug.WriteLine("GameViewModel OnPlayerTurn()");
+            Debug.WriteLine("GameViewModel OnPlayerTurn()");
             PlayerTurn = true;
         }
         private void OpponentFieldClick(FieldPosition position)
         {
 
-            //if (PlayerTurn)
-            //{
+            if (PlayerTurn)
+            {
                 GameService.ProvideShotPlacement(position.Coordinate);
-                PlayerTurn = false;
-            //}
+
+            }
 
 
         }
-
-        private void OpponentShot(FieldPosition[] positions)
-        {
-            PlayerFieldVM.HandleShotResult(positions);
-
-        }
-
         private void PlayerShot(FieldPosition[] positions)
         {
 
+            PlayerTurn = true;
         }
+        private void OpponentShot(FieldPosition[] positions)
+        {
+
+            PlayerTurn = false;
+        }
+
         private void Hover(FieldPosition position)
         {
             if (_hover != null)
             {
-                OpponentFieldVM.Field.Hover(_hover.Coordinate, false);
+                OpponentFieldVM.UnhighlightCoordinate(_hover.Coordinate);
             }
-            OpponentFieldVM.Field.Hover(position.Coordinate, true);
+            OpponentFieldVM.HighlightCoordinate(position.Coordinate);
             _hover = position;
 
         }

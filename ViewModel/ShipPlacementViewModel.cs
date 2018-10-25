@@ -53,18 +53,31 @@ namespace ViewModel
 
         public Dictionary<string, int> ShipsToPlace { set; get; }
 
+        /// <summary>
+        /// ShipPlacementDetails displayed in the Views datagrid. Notifies on Change for TwoWay-Binding.
+        /// </summary>
         private ShipPlacementDetails _s;
-        public ShipPlacementDetails SelectedShipType { set { _s = value; NotifyPropertyChanged(); } get { return _s; } }
+        public ShipPlacementDetails SelectedShipType { set { _s = value; NotifyPropertyChanged(nameof(SelectedShipType)); } get { return _s; } }
+
+
         private GameRuleSet _gameRuleSet;
-        public GameRuleSet GameRuleSet { set { _gameRuleSet = value; _fieldRepresentation = new Field(_gameRuleSet.FieldSize); }
-            get { return _gameRuleSet; } } 
-        private Field _fieldRepresentation;
+        public GameRuleSet GameRuleSet { set {
+                _gameRuleSet = value;
+                
+            }
+            get {
+                return _gameRuleSet;
+            }
+        } 
+
+        public string OpponentName { set; get; }
+
+
 
         public ObservableCollection<ShipPlacementDetails> ShipPlacements { set; get; }
 
         private List<Coordinate> _highlighted = new List<Coordinate>();
         public FieldViewModel FieldViewModel { set; get; }
-
         List<Ship> _placedShips = new List<Ship>();
 
 
@@ -99,32 +112,48 @@ namespace ViewModel
 
 
         private bool _placementValid;
-        public bool PlacementValid { set { _placementValid = value; NotifyPropertyChanged(); } get { return _placementValid; } }
+        public bool PlacementValid { set { _placementValid = value; AcceptPlacementCommand.RaiseCanExecuteChanged(); } get { return _placementValid; } }
 
 
 
 
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        private Command _onShipSelection;
+        public Command OnShipTypeSelectionCommand { get { return _onShipSelection; } }
+
+
+        public Command AcceptPlacementCommand { get; }
+
+
+
+
         public ShipPlacementViewModel(AbstractGameServiceViewModel gameService, GameRuleSet rules) : base(gameService)
         {
 
-            base.GameService.Callback.GameHandler = this.Initialize;
+            //base.GameService.Callback.GameHandler = this.Initialize;
             GameRuleSet = rules;
 
             FieldViewModel = new FieldViewModel(this, rules);
-            ShipsToPlace = rules.ShipTypeRules;
+
             //Creates ShipPlacementDetails for each ShipType to be placed.
 
 
-
-            ShipPlacements = new ObservableCollection<ShipPlacementDetails>(rules.ShipTypeRules.ToList().Select(keyValue => new ShipPlacementDetails(keyValue.Key, ShipFactory.CREATE_SHIP(keyValue.Key).Length ,keyValue.Value)).ToList());
+            ShipPlacements = new ObservableCollection<ShipPlacementDetails>(rules.ShipTypeRules.ToList().Select(keyValue => new ShipPlacementDetails(keyValue.Key, ShipFactory.CREATE_SHIP(keyValue.Key).Length, keyValue.Value)).ToList());
             SelectedShipType = ShipPlacements.First();
 
             VerticalPlacement = true;
 
-            FieldViewModel.TileClick = new TypedRelayCommand<FieldPosition>(Click);
-            FieldViewModel.TileHover = new TypedRelayCommand<FieldPosition>(Hover);
+            FieldViewModel.TileClick = new TypedCommand<FieldPosition>((field) => Click(field));
+            FieldViewModel.TileHover = new TypedCommand<FieldPosition>((field) => Hover(field));
+
+            AcceptPlacementCommand = new Command(() => PlacementValid, () => AcceptPlacement());
+
+            _onShipSelection = new Command(() =>  UpdateSelection());
+
 
 
         }
@@ -137,28 +166,33 @@ namespace ViewModel
             }
         }
 
-        public void Initialize(GameRuleSet gameRuleSet)
-        {
-            Debug.WriteLine("ShipPlacementVM received gameRules:" + gameRuleSet);
+        //public void Initialize(GameRuleSet gameRuleSet, string opponentName)
+        //{
+        //    Debug.WriteLine("ShipPlacementVM received gameRules:" + gameRuleSet);
 
-            GameRuleSet = gameRuleSet;
+        //    GameRuleSet = gameRuleSet;
+        //    OpponentName = opponentName;
 
 
 
-
-        }
+        //}
 
 
         /// <summary>
         /// Disables the selection of shipstype if the required number of ships of that type have been placed.
         ///
         /// </summary>
-        private void UpdateSelection()
+        public void UpdateSelection()
         {
             //Get all shiptypes which have the required amount of ships placed.
 
             Debug.WriteLine("UPDATING SELECTION");
     
+            if(_placedShips.Count == 0 || SelectedShipType == null)
+            {
+                return;
+            }
+
             var ShipTypesToDisable = GameRuleSet.ShipTypeRules.ToList()
                 .Where(kp => _placedShips.Count(ship => ship.Type.Equals(kp.Key)) == kp.Value)
                 .Select(a => a.Key).ToList();
@@ -182,6 +216,7 @@ namespace ViewModel
                 {
                     //ShipPlacements.GetEnumerator().MoveNext();
                     SelectedShipType = ShipPlacements.First(a => a.ShipType == ShipTypesToEnable.First());
+                    Debug.WriteLine("SETTING SELECTION TO: " + SelectedShipType.ShipType);
                 }
             }
         }
@@ -215,27 +250,32 @@ namespace ViewModel
             Unhover();
 
         }
+        
+        
+
         /// <summary>
         /// Highlights the position of a ship if it is placeable
         /// </summary>
         /// <param name="position"></param>
         private void Hover(FieldPosition position)
         {
-            if (SelectedShipType == null) { return; }
-            _highlighted.ForEach(p => FieldViewModel.Field.Hover(p, false));
+            if (SelectedShipType == null || position == null) { return; }
+
+            _highlighted.ForEach(p => FieldViewModel.UnhighlightCoordinate(p));
             var ship = ShipFactory.CREATE_SHIP(SelectedShipType.ShipType, position.Coordinate, VerticalPlacement);
 
             if (FieldViewModel.Field.ShipPlaceable(ship))
             {
                 _highlighted = ship.GetCoordinates();
-                _highlighted.ForEach(p => FieldViewModel.Field.Hover(p, true));
+                _highlighted.ForEach(p => FieldViewModel.HighlightCoordinate(p));
+
             }
 
         }
 
         private void Unhover()
         {
-            _highlighted.ForEach(p => FieldViewModel.Field.Hover(p, false));
+            _highlighted.ForEach(p => FieldViewModel.UnhighlightCoordinate(p));
             _highlighted.Clear();
         }
          
@@ -252,7 +292,7 @@ namespace ViewModel
         
         public bool AcceptPlacement()
         {
-            Debug.WriteLine("AcceptPlacement invoked");
+         
             if (PlacementValid)
             {
                 base.GameService.ProvideShipPlacements(_placedShips);

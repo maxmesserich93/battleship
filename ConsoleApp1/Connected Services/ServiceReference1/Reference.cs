@@ -77,7 +77,7 @@ namespace ConsoleApp1.ServiceReference1 {
         void ProvideIdentity(string uuid);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://fontysvenlo.org/BattleService/IGameContract/GameRules")]
-        void GameRules(Models.GameRuleSet gameRuleSet);
+        void GameRules(Models.GameRuleSet gameRuleSet, string opponentName);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://fontysvenlo.org/BattleService/IGameContract/PlacementComplete")]
         void PlacementComplete(Models.Ship[] yourShips);
@@ -95,7 +95,7 @@ namespace ConsoleApp1.ServiceReference1 {
         void ShotResult(Models.Coordinate position, Models.FieldPosition[] fieldPositions);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://fontysvenlo.org/BattleService/IGameContract/GameOver")]
-        void GameOver(string winner);
+        void GameOver(int yourScore, int opponentScore);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://fontysvenlo.org/BattleService/IGameContract/Error")]
         void Error(string message);

@@ -21,7 +21,7 @@ namespace View
     /// <summary>
     /// Interaction logic for Lobby.xaml
     /// </summary>
-    public partial class Lobby : Window
+    public partial class Lobby : Page
     {
         LobbyViewModel ViewModel { get; }
         public Lobby(LobbyViewModel vm)
@@ -52,8 +52,8 @@ namespace View
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     ShipPlacementWindow next = new ShipPlacementWindow(ViewModel.ShipPlacementViewModel);
-                    next.Show();
-                    this.Close();
+                    //next.Show();
+                    //this.Hide();
                 });
 
             }
@@ -63,8 +63,8 @@ namespace View
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     var next = new GameWindow(ViewModel.GameViewModel);
-                    next.Show();
-                    this.Close();
+                    //next.Show();
+                    //this.Hide();
                 });
 
             }
@@ -94,17 +94,24 @@ namespace View
             ViewModel.HostGame();
         }
 
-        protected void Close()
-        {
-
-
-
-
-
-
-        }
-
-
-
+        //protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        //{
+        //    if (!this.IsVisible)
+        //    {
+        //        ViewModel.GameService.Close();
+        //        Application.Current.Shutdown();
+        //        return;
+        //    }
+        //    if (MessageBox.Show("Lobby: Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+        //    {
+        //        e.Cancel = true;
+        //        base.OnClosing(e);
+        //    }
+        //    else
+        //    {
+        //        ViewModel.GameService.Close();
+        //        Application.Current.Shutdown();
+        //    }
+        //}
     }
 }

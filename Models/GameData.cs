@@ -62,6 +62,18 @@ namespace Models
             return 0;
         }
 
+        public int GetPlayerScore(int index)
+        {
+            int opponentField = 0;
+            if(index == 0)
+            {
+                opponentField = 1;
+            }
+
+            return PlayerFields[opponentField].CountHitPositions();
+
+        }
+
 
         public List<FieldPosition> Shoot(int playerNumber, Coordinate coordinate)
         {
@@ -76,6 +88,8 @@ namespace Models
             {
                 var result = PlayerFields[WaitingPlayerData()].ShootCoordinate(coordinate);
 
+
+
                 if (!PlayerShots.ContainsKey(currentPlayerData))
                 {
                     PlayerShots.Add(currentPlayerData, new List<Coordinate>());
@@ -88,18 +102,8 @@ namespace Models
                     PlayerShots[currentPlayerData].Add(coordinate);
                     PlayerShotResults[currentPlayerData].Add(coordinate, result);
                 }
-                else
-                {
-                    if (playerNumber == 0)
-                    {
-                        throw new Exception(playerNumber + " ::: " + coordinate + " => " + PlayerFields[WaitingPlayerData()]._getPosition(coordinate));
-                    }
-                }
-
                 return result;
             }
-
-            
             return null;
         }
 

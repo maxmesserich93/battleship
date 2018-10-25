@@ -14,7 +14,7 @@ namespace ViewModel.Service
 
 
         public HandleNewGame GameHandler { set; get; }
-        public delegate void HandleNewGame(GameRuleSet set);
+        public delegate void HandleNewGame(GameRuleSet set, string opponent);
         public ShotDelegate OpponentShotHandler { set; get; }
         public ShotDelegate PlayerShotHandler { set; get; }
         public delegate void ShotDelegate(FieldPosition[] fieldPositions);
@@ -22,7 +22,7 @@ namespace ViewModel.Service
         public PlayerTurn PlayerTurnHandler { set; get; }
         public delegate void PlaceShips();
         public PlaceShips PlaceShipHandler { set; get; }
-        public delegate void GameOverDelegate(string winner);
+        public delegate void GameOverDelegate(int yourScore, int opponentScore);
         public GameOverDelegate GameOverHandler { set; get; }
         public delegate void ProvidedIdentity(string id);
         public ProvidedIdentity ProvidedIdentityHandler { set; get; }

@@ -38,9 +38,9 @@ namespace ViewModel.Lobby
 
         public LobbyViewModel(AbstractGameServiceViewModel gameService) : base(gameService)
         {
-            GameService.Callback.GameHandler = _awaitGameRules;
-            GameService.Callback.PlaceShipHandler = _awaitPlaceShips;
-            GameService.Callback.PlacementCompleteHandler = _awaitPlacementComplete;
+            //GameService.Callback.GameHandler = _awaitGameRules;
+            //GameService.Callback.PlaceShipHandler = _awaitPlaceShips;
+            //GameService.Callback.PlacementCompleteHandler = _awaitPlacementComplete;
             GameService.GameListHandler = (data) => { Games = data; Debug.WriteLine("Received Games: " + data); };
 
 
@@ -81,41 +81,5 @@ namespace ViewModel.Lobby
 
 
         }
-
-        /// <summary>
-        /// Invoked when the GameRuleSet for the game is received.
-        /// </summary>
-        /// <param name="gameRuleSet"></param>
-        void _awaitGameRules(GameRuleSet gameRuleSet)
-        {
-            Debug.WriteLine("LobbyVM _awaitGameRules");
-            gameRules = gameRuleSet;
-        }
-
-        void _awaitPlaceShips()
-        {
-            ShipPlacementViewModel = new ShipPlacementViewModel(GameService, gameRules);
-            //Tell the window that the viewmodel for shipplacemnts is created.
-            OnPropertyChanged(nameof(ShipPlacementViewModel));
-        }
-
-      
-
-        void _awaitPlacementComplete(List<Ship> ships)
-        {
-            Debug.WriteLine("sadddddddddddddddddddddddddddddddddddddddddd AASDASD");
-            var field = new Field(gameRules.FieldSize);
-            var fieldVm = new FieldViewModel(this, gameRules);
-            ships.ForEach(ship => fieldVm.PlaceShip(ship));
-
-            
-
-            GameViewModel = new GameViewModel(fieldVm, this);
-            OnPropertyChanged(nameof(GameViewModel));
-
-        } 
-
-
-
     }
 }

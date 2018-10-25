@@ -100,6 +100,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Models" minOccurs="0" name="gameRuleSet" nillable="true" type="q4:GameRuleSet" />
+        <xs:element minOccurs="0" name="opponentName" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -139,7 +140,8 @@
   <xs:element name="GameOver">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="winner" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="yourScore" type="xs:int" />
+        <xs:element minOccurs="0" name="opponentScore" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

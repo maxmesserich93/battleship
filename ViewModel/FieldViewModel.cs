@@ -15,11 +15,39 @@ namespace ViewModel
 {
     public class FieldViewModel : AbstractServiceViewModel, INotifyPropertyChanged
     {
-        //public GameClient<ClientWrapper> GameClient { get; set; }
+        public class CoordinateViewModel : INotifyPropertyChanged
+        {
+            private FieldPosition _position;
+            public FieldPosition Position {
+                set {
+                    _position = value;
+                    if (value == null) { throw new Exception("CAN NOT BE NULL"); }
+                }
+                get { return _position; }
+            }
+            private bool _hover = false;
+            public bool Hover {
+                set { _hover = value; NotifyPropertyChanged(nameof(Hover)); }
+                get { return _hover; }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+        }
+
+
         public Field Field { set; get; }
         public GameRuleSet GameRuleSet { set; get; }
-        //private List<ShipPlacement> placements;
-        public ObservableCollection<FieldPosition> Fields { get; set; }
+        public ObservableCollection<CoordinateViewModel> CoordinateViewModels { get; set; }
+
+
+
         public double FieldSize { set; get; }
         private bool _enabled = false;
         public bool Enabled { set { _enabled = value;  } get { return _enabled; } }
@@ -28,7 +56,7 @@ namespace ViewModel
         {
             GameRuleSet = rules;
             Field = new Field(rules.FieldSize);
-            Fields = Field.GetData();
+            CoordinateViewModels = new ObservableCollection<CoordinateViewModel>(Field.GetData().Select(position => new CoordinateViewModel() { Position = position, Hover = false }));
             Enabled = false;
             //placements = new List<ShipPlacement>();
 
@@ -52,6 +80,16 @@ namespace ViewModel
         {
             fieldPositions.ToList().ForEach(p => Field.SetField(p.Coordinate, p.FieldPositionStatus));
 
+        }
+
+        public void HighlightCoordinate(Coordinate coordinate)
+        {
+            CoordinateViewModels.Where(coordinateVm => coordinateVm.Position.Coordinate.Equals(coordinate)).Single().Hover = true;
+        }
+
+        public void UnhighlightCoordinate(Coordinate coordinate)
+        {
+            CoordinateViewModels.Where(coordinateVm => coordinateVm.Position.Coordinate.Equals(coordinate)).Single().Hover = false;
         }
 
         public bool CanPlace(Ship placement)

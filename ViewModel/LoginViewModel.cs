@@ -28,6 +28,7 @@ namespace ViewModel
         public LobbyViewModel LobbyViewModel { set; get; }
         public AbstractCallback Callback { set; get; }
         public AbstractGameServiceViewModel GameService { set; get; }
+        public MasterViewModel MasterViewModel{set;get;}
 
         public string ServerAddressString { get {
                 return _serverAddress;
@@ -55,9 +56,9 @@ namespace ViewModel
         {
             //var b = new LocalGameServiceVM(new LocalCallback(), "max");
             var b = new RemoteGameService(PlayerName);
-            b.Login(PlayerName);
-            b.IdentityHandler += _onLogin;
             GameService = b;
+            GameService.Login(PlayerName);
+            GameService.IdentityHandler += _createMasterViewModel;
 
 
         }
@@ -65,9 +66,10 @@ namespace ViewModel
         public void LocalConnect()
         {
             var b = new LocalGameServiceVM(new LocalCallback(), PlayerName);
-            b.Login(PlayerName);
-            b.IdentityHandler += _onLogin;
             GameService = b;
+            GameService.Login(PlayerName);
+            GameService.IdentityHandler += _createMasterViewModel;
+            
         }
 
         private void _onLogin(string u)
@@ -76,50 +78,17 @@ namespace ViewModel
             LobbyViewModel= new LobbyViewModel(GameService);
             OnPropertyChanged(nameof(LobbyViewModel));
         }
-        /// <summary>
-        /// Creates a ShipPlacementViewModel for a local game.
-        /// </summary>
-        /// <param name="vm"></param>
-        public ShipPlacementViewModel CreateLocalShipPlacementVM()
+
+        private void _createMasterViewModel(string id)
         {
-            var ca = new LocalCallback();
-            //var b = new LocalGameServiceVM(ca, PlayerName);
+            MasterViewModel = new MasterViewModel(GameService);
 
-            var b = new RemoteGameService("max");
-            //Callback = ca;
-
-            //GameService = b;
-            //b.Player = ca;
-
-
-            b.Callback.GameHandler = _awaitGameRules;
-            if(PlayerName == null || PlayerName.Length == 0)
-            {
-                throw new ArgumentNullException("BAD NAME");
-            }
-            b.JoinBotGame();
-            return null;
-            //var model = new 
+            OnPropertyChanged(nameof(MasterViewModel));
         }
 
-        /// <summary>
-        /// Invoked when the GameRuleSet for the game is received.
-        /// </summary>
-        /// <param name="gameRuleSet"></param>
-        void _awaitGameRules(GameRuleSet gameRuleSet)
-        {
-            Debug.WriteLine("LoginViewModel _awaitGameRules");
-            ShipPlacementViewModel = new ShipPlacementViewModel(GameService, gameRuleSet);
-            //Tell the window that the viewmodel for shipplacemnts is created.
-            OnPropertyChanged(nameof(ShipPlacementViewModel));
 
 
-            //ShipPlacementWindow next = new ShipPlacementWindow(ShipPlacementVm);
-            //next.Show();
-            //this.Close();
 
-
-        }
 
 
 

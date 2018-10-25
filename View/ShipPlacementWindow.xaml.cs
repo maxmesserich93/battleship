@@ -20,7 +20,7 @@ namespace View
     /// <summary>
     /// Interaction logic for ShipPlacementWindow.xaml
     /// </summary>
-    public partial class ShipPlacementWindow : Window
+    public partial class ShipPlacementWindow : Page
     {
         ShipPlacementViewModel ViewModel { get; }
 
@@ -45,35 +45,17 @@ namespace View
 
         }
 
-        private void Accept_Click(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.AcceptPlacement())
-            {
-                var gameModel = new GameViewModel(ViewModel.FieldViewModel,ViewModel);
-                GameWindow next = new GameWindow(gameModel);
+        //public void Accept_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (ViewModel.AcceptPlacement())
+        //    {
+        //        var gameModel = new GameViewModel(ViewModel.FieldViewModel,ViewModel);
+        //        GameWindow next = new GameWindow(gameModel);
 
-                next.Show();
-                this.Hide();
-            }
-        }
+        //        //next.Show();
+        //        //this.Hide();
+        //    }
+        //}
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-        {
-            Debug.WriteLine(e);
-
-
-            if (MessageBox.Show("Are you sure you want to quit?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-            {
-                e.Cancel = true;
-                base.OnClosing(e);
-            }
-            else
-            {
-                ViewModel.GameService.Close();
-                Application.Current.Shutdown();
-            }
-
-
-        }
     }
 }

@@ -53,7 +53,6 @@
     <Compile Include="FieldPosition.cs" />
     <Compile Include="GameData.cs" />
     <Compile Include="GameInformation.cs" />
-    <Compile Include="GameLogic.cs" />
     <Compile Include="GamePersistenceManager.cs" />
     <Compile Include="GameRuleSet.cs" />
     <Compile Include="GameLogic\Game.cs" />

@@ -46,11 +46,6 @@ namespace View
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            //var a = (FieldPosition)value;
-
-            //var a = (FieldPosition)value;
-
-            //var cast = a.FieldPositionStatus;
             var cast = (FieldPositionStatus)values[0];
             var b = (bool)values[1];
 

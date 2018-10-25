@@ -58,14 +58,13 @@ namespace Models.Player
             
             if (_shotOptions==null || _shotOptions.Count == 0)
             {
-                Debug.WriteLine("==========================================RANDOM SHOT");
                 shot = RandomShot();
             }
             else
             {
-                Debug.WriteLine("Options: ");
-                _shotOptions.ForEach(option => Debug.Write(option + " | "));
-                Debug.WriteLine("");
+                //Debug.WriteLine("Options: ");
+                //_shotOptions.ForEach(option => Debug.Write(option + " | "));
+                //Debug.WriteLine("");
                 shot = _shotOptions[0];
                 
             }

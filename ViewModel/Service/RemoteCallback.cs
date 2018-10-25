@@ -25,14 +25,14 @@ namespace ViewModel.Service
             throw new NotImplementedException();
         }
 
-        public void GameOver(string winner)
+        public void GameOver(int yourScore, int opponentScore)
         {
-            base.GameOverHandler(winner);
+            base.GameOverHandler(yourScore, opponentScore);
         }
 
-        public void GameRules(GameRuleSet gameRuleSet)
+        public void GameRules(GameRuleSet gameRuleSet, string opponent)
         {
-            base.GameHandler?.Invoke(gameRuleSet);
+            base.GameHandler?.Invoke(gameRuleSet, opponent);
         }
 
         public void OpponentShot(Coordinate coordinate, List<FieldPosition> fieldPositions)
@@ -75,10 +75,7 @@ namespace ViewModel.Service
             base.PlayerShotHandler?.Invoke(fieldPositions);
         }
 
-        public void StartGame(GameRuleSet gameRuleSet)
-        {
-            base.GameHandler?.Invoke(gameRuleSet);
-        }
+
 
     }
 }
