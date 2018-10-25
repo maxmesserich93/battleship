@@ -14,7 +14,8 @@ namespace Models
         public string Owner { get; set; }
         [DataMember]
         public string ID { get; set; }
-
+        [DataMember]
+        public DateTime OpenDate { get; set; }
         public override string ToString()
         {
             return ID + " : " + Owner;

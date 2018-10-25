@@ -83,6 +83,8 @@ namespace Models.GameLogic
                     PlayerContracts[1].ShotResult(shot, shotResult);
                     PlayerContracts[0].OpponentShot(shot, shotResult);
                 });
+
+                PlayerContracts[Data.CurrentPlayer].Shoot();
                 
             }
         }

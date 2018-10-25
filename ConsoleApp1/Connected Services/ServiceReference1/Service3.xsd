@@ -10,6 +10,7 @@
   <xs:complexType name="GameInformation">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpenDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

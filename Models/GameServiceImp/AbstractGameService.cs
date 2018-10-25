@@ -276,12 +276,6 @@ namespace Models.GameServiceImp
                 
             }
         }
-
-        public void Ready()
-        {
-            
-        }
-
         public void Logout(string id)
         {
             if (GamePersistenceManager == null)
@@ -302,6 +296,11 @@ namespace Models.GameServiceImp
                 }
 
             }
+        }
+
+        public void Ready()
+        {
+            throw new NotImplementedException();
         }
     }
 }

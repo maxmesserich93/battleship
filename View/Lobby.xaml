@@ -13,7 +13,13 @@
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding Path=DataContext.CloseCommand}"/>
         </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=LoadedCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
+
+
+
     <Grid>
         
         <Grid>

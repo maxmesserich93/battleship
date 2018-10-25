@@ -18,6 +18,8 @@ namespace Models
 
         [DataMember]
         public GamePhase Phase { set; get; }
+        [DataMember]
+        public DateTime CreationTime { set; get; }
 
         [DataMember]
         public int CurrentPlayer { set; get; }
@@ -41,7 +43,7 @@ namespace Models
         public GameData()
         {
             Id = Guid.NewGuid().ToString();
-
+            CreationTime = DateTime.Now;
             RuleSet = GameRuleSet.DEFAULT_RULES();
             PlayerFields = new List<Field>();
             PlayerShots = new Dictionary<int, List<Coordinate>>();

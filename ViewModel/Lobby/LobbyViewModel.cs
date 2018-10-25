@@ -22,6 +22,9 @@ namespace ViewModel.Lobby
         public GameViewModel GameViewModel { set; get; }
         private GameRuleSet gameRules;
 
+        private Command _loadedCommand;
+        public Command LoadedCommand { get { return _loadedCommand; } }
+
         public List<GameInformation> Games
         {
             get { return _games; }
@@ -42,7 +45,7 @@ namespace ViewModel.Lobby
             //GameService.Callback.PlaceShipHandler = _awaitPlaceShips;
             //GameService.Callback.PlacementCompleteHandler = _awaitPlacementComplete;
             GameService.GameListHandler = (data) => { Games = data; Debug.WriteLine("Received Games: " + data); };
-
+            _loadedCommand = new Command(() => UpdateGameList());
 
         }
 
