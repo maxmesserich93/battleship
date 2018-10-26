@@ -48,12 +48,19 @@ namespace View
 
         public void Change(object sender, PropertyChangedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+
+  
+
+            if (e.PropertyName.Equals(nameof(ViewModel.MasterViewModel)))
             {
-                var next = new MasterWindow(ViewModel.MasterViewModel);
-                next.Show();
-                this.Close();
-            });
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var next = new MasterWindow(ViewModel.MasterViewModel);
+                    next.Show();
+                    this.Close();
+                });
+            }
+
         }
     }
 }

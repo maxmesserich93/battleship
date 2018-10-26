@@ -187,6 +187,7 @@ namespace Models.GameServiceImp
 
                 gameData.Owner = game.Value.PlayerDataList.First().Name;
                 gameData.ID = game.Value.Data.Id;
+                gameData.OpenDate = game.Value.Data.CreationTime;
                 return gameData;
             }).Where(game => !game.Owner.Equals(playerid)).ToList();
 

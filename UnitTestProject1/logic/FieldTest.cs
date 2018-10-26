@@ -98,7 +98,7 @@ namespace UnitTestProject1
             //Shooting the same coordinate again returns null since this is illegal IM CALLING CHILD PROTECTIVE SERVICES!
 
             List<FieldPosition> shotResponse3 = field.ShootCoordinate(new Coordinate(2, 2));
-            Assert.IsNull(shotResponse3);
+            Assert.AreEqual(shotResponse3.Count, 0);
 
 
             /**
@@ -114,7 +114,7 @@ namespace UnitTestProject1
 
             //Shooting 0,0 again is not allowed 
             List<FieldPosition> again = field.ShootCoordinate(new Coordinate(0, 0));
-            Assert.IsNull(again);
+            Assert.AreEqual(again.Count, 0);
 
             //Shooting 0,1 will hit ship b and kill it
             List<FieldPosition> killShot = field.ShootCoordinate(new Coordinate(0, 1));

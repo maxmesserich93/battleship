@@ -71,7 +71,7 @@ namespace ViewModel.Service
 
         public override void CloseClient()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

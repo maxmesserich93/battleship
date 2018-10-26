@@ -35,7 +35,7 @@ namespace MVCThing
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            ///Define the connection to the database based on the ConnectionString defined in appsettings.json
             services.AddDbContext<MVCThingContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MVCThingContext")));
         }

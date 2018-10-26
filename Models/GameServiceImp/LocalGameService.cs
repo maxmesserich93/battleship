@@ -20,9 +20,13 @@ namespace Models.GameServiceImp
 
         public new List<GameInformation> GetAvailableGames(string playerId)
         {
-            return GamePersistenceManager.GameList.Where(data => data.Phase == GameLogic.GamePhase.InProgress).Select(data => new GameInformation() { ID = data.Id, Owner = "bot" }).ToList();
+            return GamePersistenceManager.GameList.Where(data => data.Phase == GameLogic.GamePhase.InProgress).Select(data => new GameInformation() { ID = data.Id, Owner = "bot", OpenDate = data.CreationTime}).ToList();
         }
-
+        /// <summary>
+        /// Loads the provided game and adds a bot player.
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <param name="gameId"></param>
         public new void JoinGame(string identity, string gameId)
         {
             var gameData = GamePersistenceManager.LoadGame(gameId);

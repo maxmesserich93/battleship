@@ -33,9 +33,14 @@
                 <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="SelectGame" Content="Select a game to join" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            
-                <DataGrid ItemsSource="{Binding Path=Games}"
-                  SelectedItem="{Binding Path=SelectedGame, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
+
+            <DataGrid ItemsSource="{Binding Path=Games}" SelectedItem="{Binding Path=SelectedGame, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Owner}" Header="Game Owner" />
+                    <DataGridTextColumn Binding="{Binding OpenDate}" Header="Starting Date"/>
+                </DataGrid.Columns>
+                
+            </DataGrid>
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>

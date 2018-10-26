@@ -183,13 +183,16 @@ namespace Models
 
             FieldPosition position = GetPosition(coordinate);
             FieldPositionStatus currentStatus = position.FieldPositionStatus;
-            List<FieldPosition> list = null;
+            List<FieldPosition> list = new List<FieldPosition>();
+
+            Debug.WriteLine("Field Shoot: " + coordinate + " : " + currentStatus);
+            var result = new List<FieldPositionStatus>();
             switch (currentStatus)
             {
+                
   
                 case (FieldPositionStatus.Default):
                     position.FieldPositionStatus = FieldPositionStatus.ShotMiss;
-                    list = new List<FieldPosition>();
                     list.Add(position);
                     break;
                 case FieldPositionStatus.Ship:
@@ -198,9 +201,13 @@ namespace Models
                      * Return the first not killed ship where the shot coordinate is part of the ship.
                     */
                     Ship hitShip = Ships.Where(ship => !ship.IsKilled()).First(ship => ship.IsCoordinatePartOfShip(coordinate));
+
+                    Debug.WriteLine("FIELD SHOT HIT SHIP: " + hitShip);
+
+
                     if (hitShip != null)
                     {
-                        var fieldPositionStatuses = new List<FieldPositionStatus>();
+
                         if (hitShip.ShootShip())
                         {
                            //Get all coordinates of the killed ship.
@@ -212,15 +219,15 @@ namespace Models
                         else
                         {
                             position.FieldPositionStatus = FieldPositionStatus.ShotHit;
-                            list = new List<FieldPosition>();
                             list.Add(position);
                         }
                     }
                     break;
                 default:
-                    return null;
+                    break;
 
             }
+            PrintField();
             return list;
         }
 
@@ -260,7 +267,44 @@ namespace Models
 
         }
 
-        
+        public void PrintField()
+        {
+            //Debug.WriteLine("--       F I E L D       --");
+            _fieldData.ForEach(row =>
+            {
+
+                var rowList =  row.Select(f => {
+                    switch (f.FieldPositionStatus)
+                    {
+                        case (FieldPositionStatus.ShotHit):
+                            {
+                                return " x ";
+
+                            }
+                        case (FieldPositionStatus.ShotKill):
+                            {
+                                return " X ";
+                            }
+                        case (FieldPositionStatus.ShotMiss):
+                            {
+                                return " # ";
+                            }
+                        case (FieldPositionStatus.Ship):
+                            {
+                                return " S ";
+                            }
+                        default:
+                            {
+                                return " o ";
+                            }
+                    }
+                });
+                rowList.ToList().ForEach(a => Debug.Write(a));
+                Debug.WriteLine("");
+            });
+            //Debug.WriteLine("----------------------------------------------");
+
+        }
 
         public ObservableCollection<FieldPosition> GetData()
         {

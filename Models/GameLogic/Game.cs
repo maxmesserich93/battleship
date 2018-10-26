@@ -116,21 +116,6 @@ namespace Models.GameLogic
                 }
 
             
-
-
-            //var index = 0;
-            //if(playerIndex == 0)
-            //{
-            //    index = 1;
-            //}
-
-            //if(playerIndex < PlayerContracts.Count)
-            //{
-            //    PlayerContracts[index].GameOver(PlayerDataList[playerIndex].Name);
-
-            //    PlayerContracts.ForEach(player => player.GameOver(PlayerDataList[index].Name));
-            //}
-
         }
 
         public bool PlaceShips(string playerId, List<Ship> placements)
@@ -187,6 +172,7 @@ namespace Models.GameLogic
                 Debug.WriteLine("");
                 PlayerContracts[Data.CurrentPlayerData()].ShotResult(coordinate, result);
                 PlayerContracts[Data.WaitingPlayerData()].OpponentShot(coordinate, result);
+                //Update CurrentPlayer of the data
                 Data.NextPlayer();
 
                 var deadPlayer = Data.PlayerFields.Where(playerData =>playerData.Ships.Count(ship => !ship.IsKilled()) == 0).FirstOrDefault();

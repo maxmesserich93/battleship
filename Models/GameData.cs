@@ -44,6 +44,7 @@ namespace Models
         {
             Id = Guid.NewGuid().ToString();
             CreationTime = DateTime.Now;
+            Debug.WriteLine("---------------------------------------------------CREATION TIME: " + CreationTime);
             RuleSet = GameRuleSet.DEFAULT_RULES();
             PlayerFields = new List<Field>();
             PlayerShots = new Dictionary<int, List<Coordinate>>();
@@ -83,11 +84,18 @@ namespace Models
 
             var currentPlayerData = CurrentPlayerData();
 
-            Debug.WriteLine("Data.shoot " + Phase + " - " + playerNumber + " / " + coordinate);
+            
+
+            Debug.WriteLine(Phase);
+            
 
             //Check if the player is the current player
-            if (Phase == GamePhase.InProgress && playerNumber.Equals(CurrentPlayer))
+            if (Phase == GamePhase.InProgress && playerNumber == CurrentPlayer)
             {
+
+
+                Debug.WriteLine("Data.shoot " + " - " + playerNumber + " ON FIELD: "+WaitingPlayerData());
+
                 var result = PlayerFields[WaitingPlayerData()].ShootCoordinate(coordinate);
 
 
@@ -104,10 +112,13 @@ namespace Models
                     PlayerShots[currentPlayerData].Add(coordinate);
                     PlayerShotResults[currentPlayerData].Add(coordinate, result);
                 }
+                
                 return result;
             }
             return null;
         }
+
+
 
         public void NextPlayer()
         {

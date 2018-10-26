@@ -14,7 +14,19 @@ namespace ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        public string PlayerName { get; set; }
+        private string _playerName;
+        public string PlayerName {
+            get
+            {
+                return _playerName;
+            }
+            set
+            {
+                _playerName = value;
+                OnPropertyChanged(nameof(PlayerName));
+                ConnectCommand?.RaiseCanExecuteChanged();
+            }
+        }
         string _serverAddress = "localhost:8000";
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -38,11 +50,11 @@ namespace ViewModel
 
        public LoginViewModel()
         {
-            PlayerName = "Player";
-            ConnectCommand = new Command(() => Connect());
+
+
             LocalConnectCommand = new Command(() => LocalConnect());
 
-
+            ConnectCommand = new Command(() => !(PlayerName == null || PlayerName.Length == 0), () => Connect());
 
 
         }
@@ -72,7 +84,7 @@ namespace ViewModel
             GameService = b;
             GameService.Login(PlayerName);
             GameService.IdentityHandler += _createMasterViewModel;
-            
+
         }
 
         private void _onLogin(string u)

@@ -20,7 +20,7 @@ namespace ViewModel.Service
 
         public AbstractCallback Callback { get; set; }
         protected String PlayerIdentity { get; set; }
-        private List<CancellationTokenSource> cancellationTokens = new List<CancellationTokenSource>();
+
         public AbstractGameServiceViewModel(AbstractCallback callback)
         {
 
@@ -34,17 +34,9 @@ namespace ViewModel.Service
         public delegate void HandleIdentity(string id);
         public HandleIdentity IdentityHandler { set; get; }
 
-        private CancellationTokenSource _craeteToken()
-        {
-            var token = new CancellationTokenSource();
-            cancellationTokens.Add(token);
-            return token;
-        }
-
 
         public async void Login(string userName)
         {
-            Debug.WriteLine("FAGOOT");
             await AwaitLoginResult(userName).ContinueWith((task) =>
             {
                 Debug.WriteLine("Received Identity: " + task.Result);
@@ -67,7 +59,8 @@ namespace ViewModel.Service
         {
             await AwaitGameList().ContinueWith((list) =>
             {
-                Debug.WriteLine("Received avaiable games: " + list.Result);
+                Debug.WriteLine("Received avaiable games: ");
+                list.Result.Select(game => game.OpenDate).ToList().ForEach(date => Debug.WriteLine(date));
                 GameListHandler?.Invoke(list.Result);
             });
 
