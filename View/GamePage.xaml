@@ -42,7 +42,7 @@
             </Label.Style>
         </Label>
 
-        <Label Name="PlayertTurn" Content="Player Turn"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+        <Label Name="PlayertTurn" Content="Your Turn"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
             <Label.Style>
                 <Style TargetType="Label">
                     <Style.Triggers>
