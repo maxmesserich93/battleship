@@ -37,9 +37,13 @@ namespace ViewModel.Service
             {
                 ///instanceContext needs a reference to the server
 
-                Service = new GameContractClient(context);
+                //Service = new GameContractClient(context);
+                var a = new ConsoleApp1.ServiceReference1.GameContractClient(context);
+                a.Endpoint.Binding.SendTimeout = TimeSpan.FromSeconds(4.5);
 
-                //server.Endpoint.Binding.SendTimeout = TimeSpan.FromSeconds(0.5);
+                Service = a;
+
+                //                Server.Endpoint.Binding.SendTimeout = TimeSpan.FromSeconds(4.5);
                 //EndpointAddress address = new EndpointAddress("http://localhost:8000/Service/Service");
                 //server.Endpoint.Address = address;
 
@@ -53,8 +57,15 @@ namespace ViewModel.Service
 
         }
 
+        public Func<string, string> LoginFunc(string userName)
+        {
+            return null;
+        }
+
+
         public override Task<string> AwaitLoginResult(string userName)
         {
+
             return Service.LoginAsync(userName);
         }
 
@@ -94,6 +105,13 @@ namespace ViewModel.Service
         {
             Service.Logout(PlayerIdentity);
         }
+
+        public override void PlayerReady()
+        {
+            Task.Factory.StartNew(() => Service.PlayerLoaded(PlayerIdentity));
+            
+        }
+
 
 
 

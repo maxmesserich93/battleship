@@ -60,9 +60,9 @@ namespace Models.GameServiceImp
         void JoinBotGame(String name);
 
         /// <summary>
-        /// Tells the server that the player is ready to play.ff
+        /// Tells the server that the player is ready to play.
         /// </summary>
         [OperationContract]
-        void Ready();
+        void PlayerLoaded(string id);
     }
 }

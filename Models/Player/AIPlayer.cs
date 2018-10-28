@@ -110,7 +110,7 @@ namespace Models.Player
 
         public void Shoot()
         {
-            Debug.WriteLine("-----AI TURN------------");
+
             GameContract.Shoot(Identidy, RequestShotPlacement());
         }
 
@@ -118,6 +118,7 @@ namespace Models.Player
         {
             List<Ship> legalPlacement = SimplePlacement().ToList();
             GameContract.PlaceShips(Identidy, legalPlacement);
+            
         }
 
         public void OpponentShot(List<FieldPosition> fieldPositions)
@@ -176,7 +177,7 @@ namespace Models.Player
 
         public void PlacementComplete(List<Ship> yourShips)
         {
-
+            GameContract.PlayerReady(Identidy);
         }
     }
 }

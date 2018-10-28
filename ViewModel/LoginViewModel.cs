@@ -37,7 +37,6 @@ namespace ViewModel
         }
 
         public ShipPlacementViewModel ShipPlacementViewModel { set; get; }
-        public LobbyViewModel LobbyViewModel { set; get; }
         public AbstractCallback Callback { set; get; }
         public AbstractGameServiceViewModel GameService { set; get; }
         public MasterViewModel MasterViewModel{set;get;}
@@ -54,7 +53,7 @@ namespace ViewModel
 
             LocalConnectCommand = new Command(() => LocalConnect());
 
-            ConnectCommand = new Command(() => !(PlayerName == null || PlayerName.Length == 0), () => Connect());
+            ConnectCommand = new Command(() => PlayerName != null && PlayerName.Length > 0, () => Connect());
 
 
         }
@@ -87,12 +86,6 @@ namespace ViewModel
 
         }
 
-        private void _onLogin(string u)
-        {
-            Debug.WriteLine(" CREATING LOBBY VM!");
-            LobbyViewModel= new LobbyViewModel(GameService);
-            OnPropertyChanged(nameof(LobbyViewModel));
-        }
 
         private void _createMasterViewModel(string id)
         {

@@ -71,7 +71,7 @@
                                 <Setter Property="Background" Value="Blue" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}},
-                                           Path=IsFocues}" Value="true">
+                                           Path=IsFocused}" Value="true">
                                 <Setter Property="Background" Value="Transparent" />
                             </DataTrigger>
                         </Style.Triggers>

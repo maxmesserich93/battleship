@@ -41,11 +41,11 @@
   <wsdl:message name="IGameContract_JoinBotGame_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinBotGame" />
   </wsdl:message>
-  <wsdl:message name="IGameContract_Ready_InputMessage">
-    <wsdl:part name="parameters" element="tns:Ready" />
+  <wsdl:message name="IGameContract_PlayerLoaded_InputMessage">
+    <wsdl:part name="parameters" element="tns:PlayerLoaded" />
   </wsdl:message>
-  <wsdl:message name="IGameContract_Ready_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ReadyResponse" />
+  <wsdl:message name="IGameContract_PlayerLoaded_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PlayerLoadedResponse" />
   </wsdl:message>
   <wsdl:message name="IGameContract_ProvideIdentity_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ProvideIdentity" />
@@ -102,9 +102,9 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="JoinBotGame">
       <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/JoinBotGame" message="tns:IGameContract_JoinBotGame_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Ready">
-      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/Ready" message="tns:IGameContract_Ready_InputMessage" />
-      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ReadyResponse" message="tns:IGameContract_Ready_OutputMessage" />
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PlayerLoaded">
+      <wsdl:input wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoaded" message="tns:IGameContract_PlayerLoaded_InputMessage" />
+      <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoadedResponse" message="tns:IGameContract_PlayerLoaded_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ProvideIdentity">
       <wsdl:output wsaw:Action="http://fontysvenlo.org/BattleService/IGameContract/ProvideIdentity" message="tns:IGameContract_ProvideIdentity_OutputCallbackMessage" />

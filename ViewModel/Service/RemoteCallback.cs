@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
@@ -62,7 +63,8 @@ namespace ViewModel.Service
 
         public void Shoot()
         {
-            base.PlayerTurnHandler?.Invoke();
+            Debug.WriteLine("------------------------------------------------------------------ SHOT!!!!!!!!!!!!");
+            base.PlayerTurnHandler.Invoke();
         }
 
         public void ShotResult(Coordinate coordinate, List<FieldPosition> fieldPositions)

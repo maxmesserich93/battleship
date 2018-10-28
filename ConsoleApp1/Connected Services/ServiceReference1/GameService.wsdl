@@ -356,7 +356,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IGameContract_Ready_Input_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IGameContract_PlayerLoaded_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -379,7 +379,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSDualHttpBinding_IGameContract_Ready_output_policy">
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IGameContract_PlayerLoaded_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -682,14 +682,14 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="Ready">
-      <soap12:operation soapAction="http://fontysvenlo.org/BattleService/IGameContract/Ready" style="document" />
+    <wsdl:operation name="PlayerLoaded">
+      <soap12:operation soapAction="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoaded" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IGameContract_Ready_Input_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IGameContract_PlayerLoaded_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSDualHttpBinding_IGameContract_Ready_output_policy" />
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IGameContract_PlayerLoaded_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

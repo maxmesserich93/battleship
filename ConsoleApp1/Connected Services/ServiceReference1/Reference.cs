@@ -63,11 +63,11 @@ namespace ConsoleApp1.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://fontysvenlo.org/BattleService/IGameContract/JoinBotGame")]
         System.Threading.Tasks.Task JoinBotGameAsync(string name);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://fontysvenlo.org/BattleService/IGameContract/Ready", ReplyAction="http://fontysvenlo.org/BattleService/IGameContract/ReadyResponse")]
-        void Ready();
+        [System.ServiceModel.OperationContractAttribute(Action="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoaded", ReplyAction="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoadedResponse")]
+        void PlayerLoaded(string id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://fontysvenlo.org/BattleService/IGameContract/Ready", ReplyAction="http://fontysvenlo.org/BattleService/IGameContract/ReadyResponse")]
-        System.Threading.Tasks.Task ReadyAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoaded", ReplyAction="http://fontysvenlo.org/BattleService/IGameContract/PlayerLoadedResponse")]
+        System.Threading.Tasks.Task PlayerLoadedAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -193,12 +193,12 @@ namespace ConsoleApp1.ServiceReference1 {
             return base.Channel.JoinBotGameAsync(name);
         }
         
-        public void Ready() {
-            base.Channel.Ready();
+        public void PlayerLoaded(string id) {
+            base.Channel.PlayerLoaded(id);
         }
         
-        public System.Threading.Tasks.Task ReadyAsync() {
-            return base.Channel.ReadyAsync();
+        public System.Threading.Tasks.Task PlayerLoadedAsync(string id) {
+            return base.Channel.PlayerLoadedAsync(id);
         }
     }
 }

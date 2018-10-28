@@ -56,7 +56,7 @@ namespace View
         public void Change(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals(nameof(ViewModel.CurrentViewModel))){
-
+                Debug.WriteLine(" NEW VIEW MODEL " + ViewModel.CurrentViewModel);
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {

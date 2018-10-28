@@ -1,8 +1,11 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,12 +18,44 @@ namespace ViewModel.Service
     /// Abstract class for wrapping a GameService which may be defined by implementing the service reference Contract or the IGameContract if local.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class AbstractGameServiceViewModel
+    public abstract class AbstractGameServiceViewModel : INotifyPropertyChanged
     {
+
+
+        protected interface ITypedTaskUtil<out R>{}
+
+        protected class TypedTaskUtil<R> : ITypedTaskUtil<R> {
+
+            public Task CreateTask(Task<R> inputTask, Action<R> onComplete, Action<Exception> onException)
+            {
+                return inputTask
+                    .ContinueWith(task => onComplete(task.Result), TaskContinuationOptions.NotOnFaulted)
+                    .ContinueWith(exceptionTask => onException(exceptionTask.Exception), TaskContinuationOptions.OnlyOnFaulted)
+                    .ContinueWith(canceledTask => { Debug.WriteLine("CANCELED: " + canceledTask); }, TaskContinuationOptions.OnlyOnCanceled);
+                    
+
+            }
+
+            public Task CreateTask(Func<R> input, Action<R> onComplete, Action<Exception> onException)
+            {
+                return Task<R>.Factory.StartNew(() => input())
+                    .ContinueWith(completedTask => onComplete(completedTask.Result), TaskContinuationOptions.OnlyOnRanToCompletion)
+                    .ContinueWith(exceptionTask => onException(exceptionTask.Exception), TaskContinuationOptions.OnlyOnFaulted)
+                    .ContinueWith(canceledTask => { Debug.WriteLine("CANCELED: " + canceledTask); }, TaskContinuationOptions.OnlyOnCanceled);
+            }
+
+        }
+
+
+
 
         public AbstractCallback Callback { get; set; }
         protected String PlayerIdentity { get; set; }
+        private Exception _serverException;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Exception ServerException { get { return _serverException; } set { _serverException = value; NotifyPropertyChanged(nameof(ServerException)); } }
         public AbstractGameServiceViewModel(AbstractCallback callback)
         {
 
@@ -30,6 +65,10 @@ namespace ViewModel.Service
 
         public abstract Task<string> AwaitLoginResult(string userName);
 
+        //public abstract Func<string> LoginFunc(string userName);
+
+
+        //public abstract async Task<string> Bla { set; get; }
 
         public delegate void HandleIdentity(string id);
         public HandleIdentity IdentityHandler { set; get; }
@@ -37,13 +76,34 @@ namespace ViewModel.Service
 
         public async void Login(string userName)
         {
-            await AwaitLoginResult(userName).ContinueWith((task) =>
-            {
-                Debug.WriteLine("Received Identity: " + task.Result);
-                PlayerIdentity = task.Result;
-                IdentityHandler?.Invoke(task.Result);
 
-            });
+
+
+            var t = new TypedTaskUtil<string>();
+            await t.CreateTask(AwaitLoginResult(userName), (id) =>
+            {
+                Debug.WriteLine("Received Identity: " + id);
+                PlayerIdentity = id;
+                IdentityHandler?.Invoke(id);
+            }, (e) => { Debug.Write("EXCEPTION: " + e); });
+
+
+
+
+            //await AwaitLoginResult(userName).ContinueWith((task) =>
+            //{
+            //    Debug.WriteLine("Received Identity: " + task.Result);
+            //    PlayerIdentity = task.Result;
+            //    IdentityHandler?.Invoke(task.Result);
+
+            //}, TaskContinuationOptions.OnlyOnRanToCompletion)
+            //.ContinueWith(exceptionTask =>
+            //{
+            //    ServerException = exceptionTask.Exception;
+            //    Debug.WriteLine("ERROR: " + ServerException);
+            //}, TaskContinuationOptions.OnlyOnFaulted)
+            //.ContinueWith(canceledTask => Debug.WriteLine(canceledTask), TaskContinuationOptions.OnlyOnCanceled);
+
         }
 
 
@@ -62,6 +122,9 @@ namespace ViewModel.Service
                 Debug.WriteLine("Received avaiable games: ");
                 list.Result.Select(game => game.OpenDate).ToList().ForEach(date => Debug.WriteLine(date));
                 GameListHandler?.Invoke(list.Result);
+            }).ContinueWith(task =>
+            {
+                ServerException = task.Exception;
             });
 
 
@@ -113,5 +176,20 @@ namespace ViewModel.Service
             await AwaitShotPlacement(coordinate);
         }
         public abstract void Close();
+
+
+
+
+        public abstract void PlayerReady();
+
+
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

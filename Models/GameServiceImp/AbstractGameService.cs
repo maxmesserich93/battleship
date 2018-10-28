@@ -299,9 +299,19 @@ namespace Models.GameServiceImp
             }
         }
 
-        public void Ready()
+        public void PlayerLoaded(string identity)
         {
-            throw new NotImplementedException();
+            
+            if (identity == null || identity.Length == 0)
+            {
+                Console.WriteLine("Invalid identity");
+                return;
+            }
+            //Console.WriteLine("AbstractGameService.ProvideShotPlacement " + identity + " :: " + coordinate);
+
+            var player = _playerDataMap[identity];
+            Debug.WriteLine("========================================================== PLAYER LOADED: " + player.Name);
+            _gameMap[_playerToGame[player]].PlayerReady(player.UUID);
         }
     }
 }

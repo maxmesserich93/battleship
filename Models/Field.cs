@@ -185,7 +185,7 @@ namespace Models
             FieldPositionStatus currentStatus = position.FieldPositionStatus;
             List<FieldPosition> list = new List<FieldPosition>();
 
-            Debug.WriteLine("Field Shoot: " + coordinate + " : " + currentStatus);
+
             var result = new List<FieldPositionStatus>();
             switch (currentStatus)
             {
@@ -202,7 +202,7 @@ namespace Models
                     */
                     Ship hitShip = Ships.Where(ship => !ship.IsKilled()).First(ship => ship.IsCoordinatePartOfShip(coordinate));
 
-                    Debug.WriteLine("FIELD SHOT HIT SHIP: " + hitShip);
+
 
 
                     if (hitShip != null)
@@ -227,7 +227,7 @@ namespace Models
                     break;
 
             }
-            PrintField();
+            //PrintField();
             return list;
         }
 

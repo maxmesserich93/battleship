@@ -3,12 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:View"
         mc:Ignorable="d"
         Title="GameWindow" Height="350" Width="620">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="300"></RowDefinition>
             </Grid.RowDefinitions>
@@ -18,9 +27,38 @@
         </Grid.ColumnDefinitions>
             <Label Name="PlayerFieldLabel" Content="You" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"/>
             <Label Name="OpponentFieldLabel" Content="{Binding Path=OpponentName}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
-            <Frame Name="PlayerFieldFrame" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
-            <Frame Name="OpponentFieldFrame" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <Label Name="OpponentTurn" Content="Opponent Turn"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=PlayerTurn}" Value="true">
+                            <Setter Property="Label.Background" Value="Transparent"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=PlayerTurn}" Value="false">
+                            <Setter Property="Label.Background" Value="Green"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+
+        <Label Name="PlayertTurn" Content="Player Turn"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PlayerTurn}" Value="false">
+                            <Setter Property="Label.Background" Value="Transparent"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding PlayerTurn}" Value="true">
+                            <Setter Property="Label.Background" Value="Green"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+        </Label>
+        <Frame Name="PlayerFieldFrame" Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <Frame Name="OpponentFieldFrame" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
         </Grid>
 
-    </Grid>
+
 </Page>

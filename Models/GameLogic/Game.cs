@@ -19,6 +19,8 @@ namespace Models.GameLogic
 
         public List<IPlayerContract> PlayerContracts { set; get; }
 
+        private ISet<string> _ready = new HashSet<string>();
+
         public event OnGameOver GameOver;
         public delegate void OnGameOver(string gameId);
 
@@ -84,7 +86,7 @@ namespace Models.GameLogic
                     PlayerContracts[0].OpponentShot(shot, shotResult);
                 });
 
-                PlayerContracts[Data.CurrentPlayer].Shoot();
+               
                 
             }
         }
@@ -145,12 +147,11 @@ namespace Models.GameLogic
                 {
                     var playerShips = Data.PlayerFields[i].Ships;
                     PlayerContracts[i].PlacementComplete(playerShips);
-                    Debug.WriteLine(" ---------------------------------------PLACEMENTCOMPLETE INVOKED!");
                     
 
                 }
-                PlayerContracts[Data.CurrentPlayer].Shoot();
-                //Debug.WriteLine("TELLING " + Data.CurrentPlayer + " TO SHOOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + PlayerContracts[Data.CurrentPlayer]);
+                
+
             }
             return true;
         }
@@ -167,9 +168,6 @@ namespace Models.GameLogic
 
             if (result != null)
             {
-                Debug.WriteLine("SHOOT RESULT");
-                result.ForEach(a => Debug.Write(a + " -- "));
-                Debug.WriteLine("");
                 PlayerContracts[Data.CurrentPlayerData()].ShotResult(coordinate, result);
                 PlayerContracts[Data.WaitingPlayerData()].OpponentShot(coordinate, result);
                 //Update CurrentPlayer of the data
@@ -191,7 +189,6 @@ namespace Models.GameLogic
                 else
                 {
                     //Tell current player to shoot!
-                    Debug.WriteLine("TELLING " + Data.CurrentPlayer + " TO SHOOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + PlayerContracts[Data.CurrentPlayer]);
                     PlayerContracts[Data.CurrentPlayer].Shoot();
                     var player = PlayerContracts[Data.CurrentPlayer];
                     player.Shoot();
@@ -199,5 +196,19 @@ namespace Models.GameLogic
             }
         }
 
+        public void PlayerReady(string playerId)
+        {
+
+           
+            _ready.Add(playerId);
+
+            _ready.ToList().ForEach(a => Debug.WriteLine("Ready: " + a));
+
+            if(_ready.Count == 2)
+            {
+                Debug.WriteLine("TElling " + PlayerDataList[Data.CurrentPlayer].Name + " to shoot!");
+               PlayerContracts[Data.CurrentPlayer].Shoot();
+            }
+        }
     }
 }

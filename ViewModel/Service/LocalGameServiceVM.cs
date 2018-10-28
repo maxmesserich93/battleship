@@ -76,6 +76,12 @@ namespace ViewModel.Service
             Service.Logout(PlayerIdentity);
         }
 
+        public override void PlayerReady()
+        {
+            Service.PlayerLoaded(PlayerIdentity);
+
+        }
+
 
     }
 }
