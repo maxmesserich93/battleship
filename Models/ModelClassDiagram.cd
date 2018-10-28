@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Models.CoordinateExtensions" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Coordinate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Coordinate" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEwAEAAAAAAAAAAIAAAAAAAAAAYAA=</HashCode>
+      <FileName>Coordinate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Field" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIUAAggAECAAggAAEAAAAAEAACAAABAAAQAABAAAAAA=</HashCode>
+      <FileName>Field.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.FieldPosition" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAIBAAEIAAAAAAQgAAAAAAAAQAAAACAAAA=</HashCode>
+      <FileName>FieldPosition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Models.GameData" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAIABAAAAAgAAAAAIAAAACAAEAgAgAAABEA=</HashCode>
+      <FileName>GameData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.GameInformation" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAgAAEAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>GameInformation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.GameXMLUtils" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAACAAAAAAAABAAAAA=</HashCode>
+      <FileName>GamePersistenceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.GamePersistenceManager" Collapsed="true">
+    <Position X="17.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAQAAABAAQAAAAAAAAAAAAAAAAAACAAAAAAAAE=</HashCode>
+      <FileName>GamePersistenceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.GameRuleUtils" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAIQAAAAAAAA=</HashCode>
+      <FileName>GameRuleSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.GameRuleSet" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAQBAAAAAAAAAAAAAAABAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>GameRuleSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Program" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Ship" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAIEAAAACAAEgggAAABAAAAAIIAAAQAAAAAAAAA=</HashCode>
+      <FileName>Ships\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Carrier" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ships\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.BattleShip" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ships\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Cruiser" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ships\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Submarine" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ships\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Destroyer" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ships\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.ShipFactory" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Ships\ShipFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.GameLogic.Game" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAABQAAAAAAAIAAACQAAFAIQAgCAAAAAAA=</HashCode>
+      <FileName>GameLogic\Game.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Models.GameServiceImp.AbstractGameService" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAEAGCUJAAAAAEAICAADAFAAAAAAQABAACCE=</HashCode>
+      <FileName>GameServiceImp\AbstractGameService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Models.GameServiceImp.GameService" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameServiceImp\GameService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Models.GameServiceImp.LocalGameService" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameServiceImp\LocalGameService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Player.AIPlayer" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SABAgBAgACAABQAABAAAAAMAAAAEAIAAQQQgQQAAIAA=</HashCode>
+      <FileName>Player\AIPlayer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Models.Player.PlayerData" Collapsed="true">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAkAAAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Player\PlayerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Player.SimpleAIPlayer" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Player\SimpleAIPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Player.SmartAIPlayer" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Player\SmartAIPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Models.Player.StubPlayer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEBAgAAAAAAAFQAAAAAAAAAAAAAAAIAAQQAgAAAgAAA=</HashCode>
+      <FileName>Player\StubPlayer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Models.IGame" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAEAAQAAAAAAAAAA=</HashCode>
+      <FileName>GameLogic\IGame.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Models.IPlayerContract" Collapsed="true">
+    <Position X="17.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CABAgAAAAAAABQAAAAAAAAAAAAAAAIAAQAAgAAAAAAA=</HashCode>
+      <FileName>IPlayerContract.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Models.GameServiceImp.IGameContract" Collapsed="true">
+    <Position X="14" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAEBAAAAAAAIAAAAAEAAAAAAQABAACAA=</HashCode>
+      <FileName>GameServiceImp\IGameContract.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Models.GameServiceImp.IPersistenceService" Collapsed="true">
+    <Position X="15.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>GameServiceImp\IPersistenceService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Models.FieldPositionStatus" Collapsed="true">
+    <Position X="12.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAEAAAAAAAAAAAAAIAAAAACAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>FieldPosition.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Models.GameLogic.GamePhase" Collapsed="true">
+    <Position X="14" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAQAAAAQgAAAAAAAAEAAIAAACABAAABA=</HashCode>
+      <FileName>GameLogic\GamePhase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

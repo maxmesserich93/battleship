@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ViewModel.AbstractServiceViewModel">
+    <Position X="9.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>AbstractServiceViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewModel.Command" Collapsed="true">
+    <Position X="3.75" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAQAACAAQAAEAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExecutableCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.TypedCommand&lt;ParameterType&gt;" Collapsed="true">
+    <Position X="3.75" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExecutableCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewModel.TypedCommand&lt;EvaluationType, ParameterType&gt;" Collapsed="true">
+    <Position X="3.75" Y="10.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExecutableCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewModel.GameOverViewModel" Collapsed="true">
+    <Position X="17.25" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQAEACAAAAAA=</HashCode>
+      <FileName>GameOverViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewModel.GameViewModel" Collapsed="true">
+    <Position X="3.75" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAIQBIAEAgAAIAAAAAAQgAAAAAAAAQABAQAgBCA=</HashCode>
+      <FileName>GameViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.LoginViewModel" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAkAAIIAAAAAAAAAIAAIAoAAhAAAAAAQAAAACAAEQAA=</HashCode>
+      <FileName>LoginViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.MasterViewModel" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAQEAAAAAMAQAAAAEAAAgAAACIAAAAAADAEAAAA=</HashCode>
+      <FileName>MasterViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.ShipPlacementViewModel" Collapsed="true">
+    <Position X="14.5" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CBAAAEASAAQEAJAABMBAAACAgEECEIAAAQJAAAEAIgA=</HashCode>
+      <FileName>ShipPlacementViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.field.CoordinateViewModel" Collapsed="true">
+    <Position X="18" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAIAgAAAAAAAQiAAAAAAAAQCAAAAAAAA=</HashCode>
+      <FileName>field\CoordinateViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.field.FieldViewModel" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAABAoBAAAAABACAkAAAAAAQAAQAAAAAwAA=</HashCode>
+      <FileName>field\FieldViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.Lobby.LobbyViewModel" Collapsed="true">
+    <Position X="9.25" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAIEAAAABAAACAIAIAAAAgAAhAAAAAAAIAAAAAAAAAQ=</HashCode>
+      <FileName>Lobby\LobbyViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.Service.AbstractCallback" Collapsed="true">
+    <Position X="10" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQAAAAAAAAABAAAAAAAAACAAAAAAAAFEAAAAEBAAA=</HashCode>
+      <FileName>Service\AbstractCallback.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewModel.Service.AbstractGameServiceViewModel" Collapsed="true">
+    <Position X="5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAgACCAMFAAHAAAAAAgAAAEEAEAAAYARCASAA=</HashCode>
+      <FileName>Service\AbstractGameServiceViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.Service.LocalCallback" Collapsed="true">
+    <Position X="11" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CABQgAAAAAAABQAAAAAAAAAAAAAAAIAAQAAgAAAAAAA=</HashCode>
+      <FileName>Service\LocalCallback.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.Service.LocalGameServiceVM" Collapsed="true">
+    <Position X="3.75" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAgACAAAAAAAAAAAAAAAAAQEAEAAAIABCAAAA=</HashCode>
+      <FileName>Service\LocalGameServiceVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewModel.Service.RemoteCallback" Collapsed="true">
+    <Position X="8.75" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CABQgAAAAAAABQAAAAAAAAAAAAAAAIAAQAAgAAAAAAA=</HashCode>
+      <FileName>Service\RemoteCallback.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ViewModel.Service.RemoteGameService" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAgACAAAAAAAAAAgAAAAAAQEAEAAEIABCAAAA=</HashCode>
+      <FileName>Service\RemoteGameService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

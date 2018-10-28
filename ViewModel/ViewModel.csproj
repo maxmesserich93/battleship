@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ViewModelClassDiagram.cd" />
     <None Include="Properties\DataSources\Models.GameData.datasource" />
   </ItemGroup>
   <ItemGroup />
