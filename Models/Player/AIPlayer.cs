@@ -14,9 +14,10 @@ namespace Models.Player
         IGame GameContract { set; get; }
         protected IList<Coordinate> _shots;
         protected Dictionary<Coordinate, List<FieldPosition>> _shotResults;
-        List<List<FieldPosition>> shotResults { set; get; }
+        //List<List<FieldPosition>> shotResults { set; get; }
         protected GameRuleSet _gameRuleSet;
         //Field _opponentField;
+        protected Field _field;
 
         private Dictionary<int, HashSet<int>> _unshotPositions = new Dictionary<int, HashSet<int>>();
         public AIPlayer(IGame game)
@@ -86,7 +87,7 @@ namespace Models.Player
             //return c;
         }
 
-        Random random = new Random();
+        protected Random random = new Random();
 
 
         public abstract Coordinate RequestShotPlacement();
@@ -106,6 +107,8 @@ namespace Models.Player
                 }
                 _unshotPositions.Add(x, collumn);
             }
+
+            _field = new Field(gameRuleSet.FieldSize);
         }
 
         public void Shoot()
@@ -114,9 +117,11 @@ namespace Models.Player
             GameContract.Shoot(Identidy, RequestShotPlacement());
         }
 
+        protected abstract List<Ship> ShipPlacements();
+
         public void PlaceShips()
         {
-            List<Ship> legalPlacement = SimplePlacement().ToList();
+            List<Ship> legalPlacement = ShipPlacements();
             GameContract.PlaceShips(Identidy, legalPlacement);
             
         }

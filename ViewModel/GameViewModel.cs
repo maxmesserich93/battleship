@@ -20,7 +20,7 @@ namespace ViewModel
         private bool _playerTurn;
         public bool PlayerTurn {
             set {
-                _playerTurn = value; OnPropertyChanged(nameof(PlayerTurn)); Debug.WriteLine("PLAYERTURN: " + PlayerTurn);
+                _playerTurn = value; OnPropertyChanged(nameof(PlayerTurn));
             }
             get { return _playerTurn; } }
         private bool _over;

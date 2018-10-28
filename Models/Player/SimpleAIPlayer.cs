@@ -21,5 +21,10 @@ namespace Models.Player
             return RandomShot();
 
         }
+
+        protected override List<Ship> ShipPlacements()
+        {
+            return AIPlayer.SimplePlacement().ToList();
+        }
     }
 }

@@ -72,5 +72,27 @@ namespace Models.Player
 
         }
 
-}
+        protected override List<Ship> ShipPlacements()
+        {
+            return _gameRuleSet.ShipTypeRules.ToList().Select(keyValue =>
+            {
+                var tmpList = new List<Ship>();
+                Ship ship;
+                for (int i = 0; i < keyValue.Value; i++)
+                {
+                    do
+                    {
+                        var position = RandomShot();
+                        var vertical = (random.Next() % 2) == 0;
+                        ship = ShipFactory.CREATE_SHIP(keyValue.Key, position, vertical);
+                    } while (!_field.ShipPlaceable(ship));
+                    Debug.WriteLine(" -------------------- "+ship);
+                    _field.PlaceShip(ship);
+                    tmpList.Add(ship);
+                }
+                return tmpList;
+
+            }).SelectMany(lists => lists).ToList();
+        }
+    }
 }
